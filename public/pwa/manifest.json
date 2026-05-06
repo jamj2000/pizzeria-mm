@@ -1,7 +1,7 @@
 {
   "name": "Pizzería Mamma Mia",
   "short_name": "Pizzería MM",
-  "theme_color": "#ffffff",
+  "theme_color": "#000000",
   "background_color": "#c0daeb",
   "display": "standalone",
   "scope": "/",

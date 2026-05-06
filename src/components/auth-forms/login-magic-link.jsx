@@ -1,0 +1,33 @@
+'use client'
+
+import { useActionState, useEffect } from 'react';
+import { loginWithMagicLink } from '@/lib/actions/auth'
+import { toast } from 'sonner';
+import { Spinner1 } from '@/components/ui/spinners';
+
+
+export default () => {
+
+    const [state, action, pending] = useActionState(loginWithMagicLink, {})
+
+    useEffect(() => {
+        if (state?.success) toast.success(state.success)
+        if (state?.error) toast.error(state.error)
+    }, [state])
+
+    return (
+        <form action={action} className='flex flex-col gap-4 py-4'>
+            <div>
+                <label>Email</label>
+                <input type='email' name='email' placeholder="name@mail.com" className='w-full p-3' />
+            </div>
+            <button
+                disabled={pending}
+                className="px-8 py-4 bg-blue-500 text-white cursor-pointer hover:font-bold" >
+                {pending ? <Spinner1 /> : "Enviar enlace"}
+            </button>
+        </form>
+
+    );
+};
+

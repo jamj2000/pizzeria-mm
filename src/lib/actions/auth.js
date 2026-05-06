@@ -54,6 +54,25 @@ async function register(prevState, formData) {
 }
 
 
+// --------------------------------- LOGIN MAGIC LINK ------------------------------------ 
+
+
+export async function loginWithMagicLink(prevState, formData) {
+    const email = formData.get('email')
+
+    try {
+        await signIn("nodemailer", {
+            email,
+            redirectTo: globalThis.callbackUrl || '/'
+        })
+
+        return { success: "Se ha enviado un correo para iniciar sesión." }
+    } catch (error) {
+        // Auth.js lanza errores de redirección que son normales, 
+        // pero debemos capturar otros errores.
+        return { error: "No se ha podido enviar el correo." }
+    }
+}
 
 
 
@@ -126,5 +145,6 @@ async function logout() {
 export {
     register,
     login,
-    logout
+    logout,
+    loginWithMagicLink,
 }

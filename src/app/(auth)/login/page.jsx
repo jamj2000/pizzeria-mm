@@ -1,4 +1,5 @@
-import LoginForm from '@/components/auth/login-form'
+import LoginForm from '@/components/auth-forms/login-credentials'
+import LoginMagicLink from '@/components/auth-forms/login-magic-link';
 import Link from 'next/link';
 
 
@@ -27,7 +28,9 @@ async function page({ searchParams }) {
       <div className="mx-auto w-80 p-8 border border-slate-300 rounded-md bg-slate-50">
         {error && <h3>{errors.get(error)}</h3>}
         <h1 className='text-3xl font-bold py-4'>Iniciar sesión</h1>
+        <LoginMagicLink />
         <LoginForm />
+
         <Link href='/register' className='text-blue-500 cursor-pointer'>
           No tengo cuenta. Quiero crear una.
         </Link>
