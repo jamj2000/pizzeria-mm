@@ -26,8 +26,12 @@ const AuthConfig = {
                 },
             },
             from: process.env.EMAIL_FROM,
+            async authorize({ email }) {
+                return { name: email.split('@')[0], email }
+            }
         })
     ]
 }
+
 
 export default AuthConfig;
