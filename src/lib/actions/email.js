@@ -13,15 +13,14 @@ const transporter = nodemailer.createTransport({
 })
 
 export async function sendMail({ to, subject, text, html }) {
-  // Valores por defecto similares a los de mail.mjs si no se proporcionan
-  const mailTo = to || "jamj2000@gmail.com, jamunoz@iesincagarcilaso.com, adfadcaxs@afdaadxcdf.com"
+  const mailTo = to || process.env.EMAIL_TO || ''
   const mailSubject = subject || "Ejemplo con Nodemailer ✔"
   const mailText = text || "Mensaje de prueba. Ignoralo."
   const mailHtml = html || "<h1>Mensaje de prueba</h1><p>Ignoralo</p>"
 
   try {
     const info = await transporter.sendMail({
-      from: '"José Antonio Muñoz Jiménez 👻" <jamj2000@gmail.com>',
+      from: process.env.EMAIL_FROM || 'Pizzería MM <noreply@pizzeria.com>',
       to: mailTo,
       subject: mailSubject,
       text: mailText,

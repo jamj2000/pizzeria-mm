@@ -14,7 +14,7 @@ export default function useRepartidores(dataRepartidores) {
         const busqueda = buscar.toLowerCase();
         repartidoresFiltrados = repartidoresFiltrados.filter(repartidor =>
             repartidor.nombre.toLowerCase().includes(busqueda) ||
-            repartidor.telefono.toLowerCase().includes(busqueda)
+            String(repartidor.telefono).toLowerCase().includes(busqueda)
         );
     }
 

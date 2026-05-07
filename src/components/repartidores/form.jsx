@@ -14,7 +14,7 @@ export default function Form({ action, repartidor, disabled = false, labelSubmit
     useEffect(() => {
         if (state.success) {
             toast.success(state.success)
-            document.getElementById(formId).closest('dialog').close()
+            document.getElementById(formId)?.closest('dialog')?.close()
         }
         if (state.error) {
             toast.error(state.error)

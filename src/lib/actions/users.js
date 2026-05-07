@@ -51,7 +51,7 @@ async function newUser(prevState, formData) {
         revalidatePath('/dashboard')
         return { success: 'Usuario guardado' }
     } catch (error) {
-        return { error }
+        return { error: 'Error al registrar el usuario. Inténtalo de nuevo.' }
     }
 
 }
@@ -103,7 +103,7 @@ async function editUser(prevState, formData) {
                 active,
                 address,
                 phone,
-                image,
+                image: image || existingUser.image,
                 role,
             }
         })
@@ -116,39 +116,21 @@ async function editUser(prevState, formData) {
     }
 }
 
-// async function deleteUser(prevState, formData) {
-//     try {
-//         const id = formData.get('id')
-
-//         await prisma.user.delete({
-//             where: { id },
-//         })
-//         revalidatePath('/dashboard')
-//         return { success: 'Usuario eliminado' }
-//     } catch (error) {
-//         return { error }
-//     }
-
-// }
-
 async function deleteUser(user) {
     try {
         const id = user.id
-
+        if (user.stripeCustomerId) {
+            await stripe.customers.del(user.stripeCustomerId)
+        }
         await prisma.user.delete({
             where: { id },
         })
-
-        await stripe.customers.del(user.stripeCustomerId);
-
         revalidatePath('/dashboard')
         return { success: 'Usuario eliminado' }
     } catch (error) {
-        return { error }
+        return { error: 'Error al eliminar el usuario. Inténtalo de nuevo.' }
     }
-
 }
-
 
 async function activeUser(user) {
     if (user) {

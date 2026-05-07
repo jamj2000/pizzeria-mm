@@ -15,7 +15,7 @@ export const metadata = { title: "Pizzería MM - Pedidos" }
 export default async function PaginaPedidos() {
     const session = await auth()
 
-    const isAdminSession = session.user?.role === 'ADMIN'
+    const isAdminSession = session?.user?.role === 'ADMIN'
 
 
     return (

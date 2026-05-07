@@ -43,7 +43,6 @@ export default function Form({ action, user, pedido, pizzas, repartidores, disab
         <form id={formId} action={faction} className="flex flex-col gap-2 text-sm" >
             <input type="hidden" name="id" defaultValue={pedido?.id} />
             <input type='hidden' name="clienteId" defaultValue={user.id} />
-            {/* <input type='hidden' name="repartidorId" /> */}
 
             <button
                 type="submit"

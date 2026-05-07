@@ -14,7 +14,7 @@ import Estado from './estado';
 
 export default ({ session, promesaUsuarios }) => {
     const users = use(promesaUsuarios)
-    const isAdminSession = session.user?.role === 'ADMIN'
+    const isAdminSession = session?.user?.role === 'ADMIN'
 
     const Insertar = () =>
         <Modal trigger={<IconoInsertar />}>
@@ -105,12 +105,14 @@ export default ({ session, promesaUsuarios }) => {
 
     return (
         <div>
-            <div className='flex justify-end items-center gap-4 pb-4'>
-                <Insertar />
-            </div>
+            {isAdminSession &&
+                <div className='flex justify-end items-center gap-4 pb-4'>
+                    <Insertar />
+                </div>
+            }
 
             {users
-                .filter(user => user.id !== session.user.id)
+                .filter(user => user.id !== session?.user?.id)
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map(user =>
                     <Item key={user.id} user={user}>

@@ -56,7 +56,7 @@ export const PizzaInfo = ({ pizza }) => {
                 <p className="text-4xl">{pizza.nombre}</p>
                 <p className="text-4xl font-bold text-orange-300">{pizza.precio} €</p>
                 <p className="py-4 font-bold text-xl">Ingredientes</p>
-                {pizza.ingredientes.map(ingrediente =>
+                {pizza.ingredientes?.map(ingrediente =>
                     <div className="text-lg" key={ingrediente.id}>
                         <p>{ingrediente.nombre}</p>
 

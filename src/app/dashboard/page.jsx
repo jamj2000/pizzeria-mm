@@ -25,7 +25,7 @@ export default async function Dashboard() {
 
     if (!session) redirect('/login')
 
-    const isAdminSession = session.user?.role === 'ADMIN'
+    const isAdminSession = session?.user?.role === 'ADMIN'
 
     return (
         <div>

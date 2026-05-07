@@ -57,19 +57,16 @@ async function register(prevState, formData) {
 // --------------------------------- LOGIN MAGIC LINK ------------------------------------ 
 
 
-export async function loginWithMagicLink(prevState, formData) {
+async function loginWithMagicLink(prevState, formData) {
     const email = formData.get('email')
-
+    const callbackUrl = formData.get('callbackUrl') || '/'
     try {
         await signIn("nodemailer", {
             email,
-            redirectTo: globalThis.callbackUrl || '/'
+            redirectTo: callbackUrl
         })
-
         return { success: "Se ha enviado un correo para iniciar sesión." }
     } catch (error) {
-        // Auth.js lanza errores de redirección que son normales, 
-        // pero debemos capturar otros errores.
         return { error: "No se ha podido enviar el correo." }
     }
 }
@@ -95,19 +92,18 @@ async function login(prevState, formData) {
             return { error: 'Usuario deshabilitado. Consulte al administrador.' }
         }
 
-        // Compare password 
-        const matchPassword = user.password
-            ? await bcrypt.compare(password, user.password)
-            : true; // Caso especial si no hay contraseña almacenada
-
+        // Compare password
+        if (!user.password) {
+            return { error: 'Este usuario no tiene contraseña configurada. Inicie sesión con Google o GitHub.' }
+        }
+        const matchPassword = await bcrypt.compare(password, user.password);
         if (!matchPassword) {
             return { error: 'Credenciales incorrectas.' }
         }
-
         await signIn('credentials', {
             email,
             password,
-            redirectTo: globalThis.callbackUrl || '/'
+            redirectTo: formData.get('callbackUrl') || '/'
         })
 
         return { success: "Inicio de sesión correcto" }

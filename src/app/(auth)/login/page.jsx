@@ -19,17 +19,15 @@ errors.set('Default', "No se puede iniciar sesión.");
 
 async function page({ searchParams }) {
   const { error, callbackUrl } = await searchParams
-  // Usamos globalThis para almacenar variable global
-  // La usaremos en los actions de login
-  globalThis.callbackUrl = decodeURIComponent(callbackUrl ?? '%2Fdashboard')
+  const resolvedCallbackUrl = decodeURIComponent(callbackUrl ?? '%2Fdashboard')
 
   return (
     <>
       <div className="mx-auto w-80 p-8 border border-slate-300 rounded-md bg-slate-50">
         {error && <h3>{errors.get(error)}</h3>}
         <h1 className='text-3xl font-bold py-4'>Iniciar sesión</h1>
-        <LoginMagicLink />
-        <LoginForm />
+        <LoginMagicLink callbackUrl={resolvedCallbackUrl} />
+        <LoginForm callbackUrl={resolvedCallbackUrl} />
 
         <Link href='/register' className='text-blue-500 cursor-pointer'>
           No tengo cuenta. Quiero crear una.

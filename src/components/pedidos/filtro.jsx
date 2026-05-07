@@ -23,7 +23,6 @@ export default function Filtro({ buscar, setBuscar, propiedad = 'fecha_hora', se
                     <option value="fecha_hora">Fecha y hora</option>
                     <option value="cliente.name">Cliente</option>
                     <option value="repartidor.nombre">Repartidor</option>
-                    {/* <option value="pedidoPizzas.pizza.nombre">Pizza</option> */}
                 </select>
                 <select value={orden} onChange={e => setOrden(e.target.value)} className="p-2 border rounded-md w-fit">
                     <option value="asc">Ascendente</option>

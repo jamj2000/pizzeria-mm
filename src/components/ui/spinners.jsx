@@ -1,7 +1,5 @@
 'use client'
-import { useState } from "react"
 import { BarLoader, PulseLoader, ClipLoader } from "react-spinners"
-
 
 
 const styles = {
@@ -10,52 +8,43 @@ const styles = {
 }
 
 
-
 export const Spinner1 = () => {
-    let [loading, setLoading] = useState(true)
-
     return (
         <PulseLoader
             color={'currentcolor'}
             size={10}
-            loading={loading}
+            loading={true}
             cssOverride={styles}
             aria-label="Loading Spinner1"
-            data-testid="loader"
+            data-testid="loader-1"
         />
     );
 }
 
 
-
 export const Spinner2 = () => {
-    let [loading, setLoading] = useState(true);
-
     return (
         <BarLoader
             color={'currentcolor'}
-            size={10}
-            loading={loading}
-            // cssOverride={styles}
+            width={60}
+            height={10}
+            loading={true}
+            cssOverride={styles}
             aria-label="Loading Spinner2"
-            data-testid="loader"
+            data-testid="loader-2"
         />
     )
 }
 
 
 export const Spinner3 = () => {
-    let [loading, setLoading] = useState(true)
-
     return (
         <ClipLoader
             color={'currentcolor'}
             size={20}
-            loading={loading}
-            // cssOverride={styles}
+            loading={true}
             aria-label="Loading Spinner3"
-            data-testid="loader"
+            data-testid="loader-3"
         />
     )
 }
-

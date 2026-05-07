@@ -25,35 +25,6 @@ export default ({ session }) => {
 
     const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0)
 
-
-    // async function handleCheckout() {
-    //     if (!user) return
-
-    //     setIsPending(true)
-    //     try {
-    //         const res = await fetch('/api/checkout', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify({ items: cart, userId: user.id, userEmail: user.email, userName: user.name }),
-    //         })
-
-    //         const data = await res.json()
-
-    //         if (!res.ok || !data.url) {
-    //             toast.error(data.error || 'Error al iniciar el pago')
-    //             return
-    //         }
-
-    //         // Redirigir a la página de pago de Stripe
-    //         window.location.href = data.url
-    //     } catch (error) {
-    //         toast.error('Error de conexión. Inténtalo de nuevo.')
-    //     } finally {
-    //         setIsPending(false)
-    //     }
-    // }
-
-
     async function handleCheckout() {
         if (!user) return
         setIsPending(true)

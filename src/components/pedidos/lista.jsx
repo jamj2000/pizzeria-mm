@@ -29,7 +29,7 @@ export default ({
     const session = use(promesaSession)
     const user = session?.user
 
-    const isAdminSession = session.user?.role === 'ADMIN'
+    const isAdminSession = session?.user?.role === 'ADMIN'
 
     const {
         pedidosFiltrados,
@@ -122,10 +122,6 @@ export default ({
                 orden={orden}
                 setOrden={setOrden}
             />
-
-            {/* <div className='flex justify-end items-center gap-4 pb-4'>
-                <Insertar />
-            </div> */}
 
             <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
                 {pedidosFiltrados.map(pedido =>

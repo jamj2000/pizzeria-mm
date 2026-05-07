@@ -30,7 +30,6 @@ export default () => {
                 <label>Contraseña</label>
                 <input type="password" name='password' placeholder="******" className='w-full p-3' />
             </div>
-            {/* <p className={`info ${tipo}`}> {resultado} </p> */}
             <button
                 disabled={pending}
                 className="px-8 py-4 bg-blue-500 text-white cursor-pointer hover:font-bold" >

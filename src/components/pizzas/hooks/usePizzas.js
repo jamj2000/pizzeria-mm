@@ -13,7 +13,7 @@ export default function usePizzas(dataPizzas) {
         const busqueda = buscar.toLowerCase();
         pizzasFiltradas = pizzasFiltradas.filter(pizza =>
             pizza.nombre.toLowerCase().includes(busqueda) ||
-            pizza.precio.toString().includes(busqueda)
+            String(pizza.precio).includes(busqueda)
         );
     }
 

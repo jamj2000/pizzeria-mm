@@ -20,6 +20,7 @@ model User {
   active           Boolean   @default(true)
   stripeCustomerId String?   @unique
   accounts         Account[]
+  sessions         Session[]
   pedidos          Pedido[]
 }
 
@@ -47,6 +48,14 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Repartidor {

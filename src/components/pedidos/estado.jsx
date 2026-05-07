@@ -29,7 +29,7 @@ function StateButton({ pedido }) {
     return (
         <button
             disabled={pending}
-            className={`disabled:bg-slate-500 rounded-full flex items-center hover:outline hover:ouline-black`}
+            className={`disabled:bg-slate-500 rounded-full flex items-center hover:outline hover:outline-black`}
         >
             {pending
                 ? <LoaderCircleIcon className={`text-white p-1 size-6 animate-spin`} />

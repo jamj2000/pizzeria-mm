@@ -5,9 +5,6 @@ import { toast } from "sonner";
 import { labelDefault } from "../ui/labels";
 import CheckBox from "../ui/check-box";
 import InputAvatar from "../ui/input-avatar";
-import { LoaderCircleIcon } from "lucide-react";
-import { useFormStatus } from "react-dom";
-import Estado from "@/components/pedidos/estado";
 
 
 export default function Form({ action, isAdminSession, user, disabled = false, labelSubmit = labelDefault }) {
@@ -18,16 +15,14 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
     useEffect(() => {
         if (state?.success) {
             toast.success(state.success)
-            document.getElementById(formId).closest('dialog')?.close() // Si el padre es un dialog, lo cerramos
+            document.getElementById(formId)?.closest('dialog')?.close()
         }
         if (state?.error) toast.error(state.error)
         if (state?.ok) {
-            // toast(<div className="text-4xl flex justify-end text-green-600">🙂 OK</div>, { duration: 800 })
-            document.getElementById(formId).closest('dialog')?.close() // Si el padre es un dialog, lo cerramos
+            document.getElementById(formId)?.closest('dialog')?.close()
         }
 
     }, [state])
-
 
 
     return (
@@ -45,7 +40,7 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
                     {isAdminSession
                         ?
                         <CheckBox
-                            key={`active-${user?.active}`}  // Para actualizar VDOM al detectar cambio
+                            key={`active-${user?.active}`}
                             name={'active'}
                             defaultChecked={user?.active == true}
                             className={"self-center mb-4 text-sm w-fit after:content-['_Cuenta_no_activa'] has-checked:after:content-['_Cuenta_activa'] has-checked:bg-blue-200 has-checked:text-blue-800  px-2 py-1 text-gray-500"}
@@ -91,12 +86,9 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
                     <input
                         name='password'
                         type='password'
-                        // defaultValue={user?.password}
-                        // placeholder="Password"
                         placeholder='no cambiar contraseña'
                         className="w-full appearance-none text-xl md:text-2xl bg-white disabled:bg-white focus:outline-none focus:border-blue-400"
                         disabled={disabled}
-                    // required
                     />
                     <input
                         name='address'
@@ -153,7 +145,7 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
                                 timeZone: "Europe/Madrid",
                             })}</span>
 
-                            <Estado pedido={pedido} />
+                            <span>{['CANCELADO', 'PENDIENTE', 'EN REPARTO', 'ENTREGADO'][pedido.estado]}</span>
                         </div>
                     )}
             </div >
@@ -161,24 +153,3 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
         </>
     )
 }
-
-
-
-
-
-function StateButton({ pedido }) {
-    const { pending } = useFormStatus()
-
-    return (
-        <button
-            disabled={pending}
-            className={`disabled:bg-slate-500 rounded-full flex items-center hover:outline hover:ouline-black`}
-        >
-            {pending
-                ? <LoaderCircleIcon className={`text-white p-1 size-5 animate-spin`} />
-                : <Estado codigo={pedido.estado} />
-            }
-        </button>
-    )
-}
-
