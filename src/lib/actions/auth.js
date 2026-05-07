@@ -62,6 +62,7 @@ async function loginWithMagicLink(prevState, formData) {
     const callbackUrl = formData.get('callbackUrl') || '/'
     try {
         await signIn("nodemailer", {
+            name: email.split('@')[0],
             email,
             redirectTo: callbackUrl
         })
