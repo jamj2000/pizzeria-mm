@@ -7,7 +7,7 @@ import { Spinner1 } from '@/components/ui/spinners';
 
 
 
-export default () => {
+export default ({ callbackUrl, className, error }) => {
 
     const [state, action, pending] = useActionState(register, {})
 
@@ -17,7 +17,10 @@ export default () => {
     }, [state])
 
     return (
-        <form action={action} className='flex flex-col gap-4 py-4'>
+        <form action={action} className={className}>
+            <input type='hidden' name='callbackUrl' defaultValue={callbackUrl} />
+            <h1 className="text-2xl font-bold mb-4 text-blue-500">Crear cuenta</h1>
+
             <div>
                 <label>Nombre</label>
                 <input type='text' name='name' placeholder="José García" className='w-full p-3' />
@@ -32,9 +35,10 @@ export default () => {
             </div>
             <button
                 disabled={pending}
-                className="px-8 py-4 bg-blue-500 text-white cursor-pointer hover:font-bold" >
+                className="mt-4 py-4 w-full bg-blue-500 text-white cursor-pointer hover:font-bold" >
                 {pending ? <Spinner1 /> : "Crear cuenta"}
             </button>
+            {error && <p className='text-red-400'>{error}</p>}
         </form>
 
 

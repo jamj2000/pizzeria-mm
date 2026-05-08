@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { Spinner1 } from '@/components/ui/spinners';
 
 
-export default function LoginForm({ callbackUrl }) {
+export default function LoginForm({ callbackUrl, className, error }) {
     const [state, action, pending] = useActionState(login, {})
     useEffect(() => {
         if (state?.success) toast.success(state.success)
@@ -14,8 +14,10 @@ export default function LoginForm({ callbackUrl }) {
     }, [state])
 
     return (
-        <form action={action} className='flex flex-col gap-4 py-4'>
+        <form action={action} className={className}>
             <input type='hidden' name='callbackUrl' defaultValue={callbackUrl} />
+            <h1 className="text-2xl font-bold mb-4 text-blue-500">Credenciales</h1>
+
             <div>
                 <label>Email</label>
                 <input type='email' name='email' placeholder="name@mail.com" className='w-full p-3' />
@@ -24,9 +26,10 @@ export default function LoginForm({ callbackUrl }) {
                 <label>Contraseña</label>
                 <input type="password" name='password' placeholder="******" className='w-full p-3' />
             </div>
-            <button disabled={pending} className="px-8 py-4 bg-blue-500 text-white cursor-pointer hover:font-bold">
+            <button disabled={pending} className="mt-4 py-4 w-full bg-blue-500 text-white cursor-pointer hover:font-bold">
                 {pending ? <Spinner1 /> : "Iniciar sesión"}
             </button>
+            {error && <p className='text-red-400'>{error}</p>}
         </form>
     );
 }

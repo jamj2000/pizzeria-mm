@@ -54,25 +54,6 @@ async function register(prevState, formData) {
 }
 
 
-// --------------------------------- LOGIN MAGIC LINK ------------------------------------ 
-
-
-async function loginWithMagicLink(prevState, formData) {
-    const email = formData.get('email')
-    const callbackUrl = formData.get('callbackUrl') || '/'
-    try {
-        await signIn("nodemailer", {
-            name: email.split('@')[0],
-            email,
-            redirectTo: callbackUrl
-        })
-        return { success: "Se ha enviado un correo para iniciar sesión." }
-    } catch (error) {
-        return { error: "No se ha podido enviar el correo." }
-    }
-}
-
-
 
 // --------------------------------- LOGIN ------------------------------------
 
@@ -137,6 +118,60 @@ async function logout() {
 
 
 
+// --------------------------------- LOGIN MAGIC LINK ------------------------------------ 
+
+
+async function loginWithMagicLink(prevState, formData) {
+    const email = formData.get('email')
+    const callbackUrl = formData.get('callbackUrl') || '/'
+    try {
+        await signIn("nodemailer", {
+            email,
+            redirectTo: callbackUrl
+        })
+        return { success: "Se ha enviado un correo para iniciar sesión." }
+    } catch (error) {
+        return { error: "No se ha podido enviar el correo." }
+    }
+}
+
+
+
+// --------------------------------- LOGIN OAUTH GOOGLE ------------------------------------ 
+export async function loginGoogle() {
+    try {
+        await signIn('google', { redirectTo: globalThis.callbackUrl })
+    } catch (error) {
+        console.log(error);
+        throw error
+    }
+}
+
+
+
+
+// --------------------------------- LOGIN OAUTH GITHUB ------------------------------------ 
+export async function loginGithub() {
+    try {
+        await signIn('github', { redirectTo: globalThis.callbackUrl })
+    } catch (error) {
+        console.log(error);
+        throw error
+    }
+}
+
+
+// --------------------------------- LOGIN OAUTH DISCORD ------------------------------------ 
+export async function loginDiscord() {
+    try {
+        await signIn('discord', { redirectTo: globalThis.callbackUrl })
+    } catch (error) {
+        console.log(error);
+        throw error
+    }
+}
+
+
 
 
 export {
@@ -144,4 +179,7 @@ export {
     login,
     logout,
     loginWithMagicLink,
+    loginGoogle,
+    loginGithub,
+    loginDiscord,
 }

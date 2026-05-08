@@ -3,6 +3,9 @@ import prisma from "@/lib/prisma"
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { obtenerUsuarioPorId } from "@/lib/data/users"
 import authConfig from "@/lib/auth.config"
+import Stripe from "stripe"
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 
 export const options = {
@@ -40,6 +43,19 @@ export const options = {
             return token
         }
     },
+    events: {
+        // Evento para Magic Link y OAuth, no para credentials
+        async createUser({ user }) {
+            if (!user.stripeCustomerId) {
+                const customer = await stripe.customers.create({ email: user.email })
+                await prisma.user.update({
+                    where: { id: user.id },
+                    data: { stripeCustomerId: customer.id }
+                })
+            }
+        }
+    }
+
 }
 
 

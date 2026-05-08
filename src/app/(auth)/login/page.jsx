@@ -1,7 +1,10 @@
+import RegisterCredentials from '@/components/auth-forms/register-credentials'
 import LoginForm from '@/components/auth-forms/login-credentials'
-import LoginMagicLink from '@/components/auth-forms/login-magic-link';
-import Link from 'next/link';
-
+import LoginMagicLink from '@/components/auth-forms/login-magic-link'
+import LoginOauth from '@/components/auth-forms/login-oauth'
+import { auth } from '@/lib/auth'
+import { redirect } from 'next/navigation';
+import { CirclePlus, Play, Globe, Key, Mail } from 'lucide-react'
 
 // https://next-auth.js.org/configuration/pages#sign-in-page
 const errors = new Map();
@@ -17,24 +20,79 @@ errors.set('SessionRequired', "Error al iniciar sesión. Verifique que los detal
 errors.set('Default', "No se puede iniciar sesión.");
 
 
-async function page({ searchParams }) {
+async function PaginaLogin({ searchParams }) {
   const { error, callbackUrl } = await searchParams
-  const resolvedCallbackUrl = decodeURIComponent(callbackUrl ?? '%2Fdashboard')
+  globalThis.callbackUrl = callbackUrl
+
+  const sesion = await auth()
+
+  if (sesion) redirect('/dashboard')
 
   return (
-    <>
-      <div className="mx-auto w-80 p-8 border border-slate-300 rounded-md bg-slate-50">
-        {error && <h3>{errors.get(error)}</h3>}
-        <h1 className='text-3xl font-bold py-4'>Iniciar sesión</h1>
-        <LoginMagicLink callbackUrl={resolvedCallbackUrl} />
-        <LoginForm callbackUrl={resolvedCallbackUrl} />
+    <div className="relative mt-8 mx-auto flex flex-col gap-2 w-[375px]">
+      {/* En Tailwind, la clase peer funciona sólo entre hermanos (siblings) */}
+      {/* https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-peers */}
 
-        <Link href='/register' className='text-blue-500 cursor-pointer'>
-          No tengo cuenta. Quiero crear una.
-        </Link>
-      </div>
-    </>
+      <input
+        id="signup"
+        type="radio" name="sign"
+        className="hidden peer/register"
+      />
+      <label
+        htmlFor="signup"
+        title="Registro"
+        className='absolute right-0 text-slate-300 peer-checked/register:text-black'>
+        <CirclePlus />
+      </label>
+
+      <input
+        id="signin"
+        title="Iniciar sesión"
+        type="radio" name="sign"
+        className="hidden peer/login"
+        defaultChecked={true} />
+      <label
+        htmlFor="signin"
+        title="Iniciar sesión"
+        className='absolute right-10 text-slate-300 peer-checked/login:text-black'>
+        <Play />
+      </label>
+
+      <input
+        id="signmagic"
+        title="Iniciar sesión con Magic Link"
+        type="radio" name="sign"
+        className="hidden peer/magic"
+      />
+      <label
+        htmlFor="signmagic"
+        title="Iniciar sesión con Magic Link"
+        className='absolute right-20 text-slate-300 peer-checked/magic:text-black'>
+        <Mail />
+      </label>
+
+
+      <input
+        id="signoauth"
+        title="Iniciar sesión OAuth"
+        type="radio" name="sign"
+        className="hidden peer/oauth"
+      />
+      <label
+        htmlFor="signoauth"
+        title="Iniciar sesión con OAuth"
+        className='absolute right-30 text-slate-300 peer-checked/oauth:text-black'>
+        <Globe />
+      </label>
+
+
+      <RegisterCredentials className="hidden peer-checked/register:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginForm className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginMagicLink className="hidden peer-checked/magic:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginOauth className="hidden peer-checked/oauth:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      {error && <p className='text-red-400'>{errors.get(error)}</p>}
+    </div>
   )
 }
 
-export default page
+export default PaginaLogin
