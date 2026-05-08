@@ -13,7 +13,7 @@ export default async function Header() {
 
 
   return (
-    <nav className='z-10 w-full px-4 py-2 flex justify-between items-center bg-white/75 backdrop-blur-xs fixed bottom-0 md:bottom-auto md:top-0'>
+    <nav className='z-10 w-full px-4 py-2 flex justify-between items-center bg-white/75 backdrop-blur-xs fixed top-0'> {/* bottom-0 md:bottom-auto md:top-0*/}
 
       <div className="flex items-center gap-1">
         {/* Control Menú */}

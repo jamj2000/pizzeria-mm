@@ -130,8 +130,8 @@ export default ({ session }) => {
                     </button>
                 </div>
                 :
-                <div className="bg-orange-100 border-l-4 border-orange-500 p-4 rounded text-right">
-                    <p className="text-orange-700">
+                <div className="bg-blue-100 border-l-4 border-blue-500 p-4 rounded text-right">
+                    <p className="text-blue-700">
                         Debes <Link href="/login?callbackUrl=%2Fcarrito" className="font-bold underline">iniciar sesión</Link> para tramitar el pedido.
                     </p>
                 </div>

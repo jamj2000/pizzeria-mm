@@ -131,7 +131,7 @@ async function loginWithMagicLink(prevState, formData) {
         })
         return { success: "Se ha enviado un correo para iniciar sesión." }
     } catch (error) {
-        // NEXT_REDIRECT
+        // Si es un error de redirección (éxito), lo lanzamos para que Next.js lo maneje
         if (error.message === 'NEXT_REDIRECT') {
             throw error
         }

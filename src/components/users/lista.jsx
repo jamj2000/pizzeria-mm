@@ -113,7 +113,7 @@ export default ({ session, promesaUsuarios }) => {
 
             {users
                 .filter(user => user.id !== session?.user?.id)
-                .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => a.name?.localeCompare(b.name))
                 .map(user =>
                     <Item key={user.id} user={user}>
                         <Estado user={user} editable={isAdminSession} />
