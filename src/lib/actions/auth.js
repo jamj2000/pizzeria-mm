@@ -131,6 +131,11 @@ async function loginWithMagicLink(prevState, formData) {
         })
         return { success: "Se ha enviado un correo para iniciar sesión." }
     } catch (error) {
+        // NEXT_REDIRECT
+        if (error.message === 'NEXT_REDIRECT') {
+            throw error
+        }
+        console.error("LOGIN_MAGIC_LINK_ERROR", error)
         return { error: "No se ha podido enviar el correo." }
     }
 }

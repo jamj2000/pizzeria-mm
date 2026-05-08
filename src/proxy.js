@@ -38,7 +38,7 @@ export const config = {
         /*
          * Match all request paths except for the ones starting with:
          * - api (API routes)
-         * - register, login, logout, error
+         * - register, login, logout, error, verify-request
          * - pizzas
          * - images (into /public)
          * - pwa (into /public) 
@@ -47,6 +47,6 @@ export const config = {
          * - favicon.ico, sitemap.xml, robots.txt (metadata files)
          * - $ (root page)
          */
-        '/((?!api|register|login|logout|error|images|pwa|pizzas|carrito|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|$).*)',
+        '/((?!api|register|login|logout|error|verify-request|images|pwa|pizzas|carrito|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|$).*)',
     ]
 }

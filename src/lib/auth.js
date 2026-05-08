@@ -14,7 +14,8 @@ export const options = {
     pages: {
         signIn: '/login',
         signOut: '/logout',
-        error: '/error'
+        error: '/error',
+        verifyRequest: '/verify-request'
     },
     callbacks: {
         async session({ session, token }) {
