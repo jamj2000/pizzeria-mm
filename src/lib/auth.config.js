@@ -5,10 +5,9 @@ import Credentials from "@auth/core/providers/credentials"
 import Nodemailer from "@auth/core/providers/nodemailer"
 import { obtenerUsuarioPorEmail } from "@/lib/data/users"
 
-
-
 import { htmlTemplate, textTemplate } from "@/lib/utils/email-templates"
 import { createTransport } from "nodemailer"
+
 
 const AuthConfig = {
     providers: [
@@ -41,6 +40,7 @@ const AuthConfig = {
                     text: textTemplate({ url, host }),
                     html: htmlTemplate({ url, host }),
                 })
+                // console.log('RESULTADO EMAIL ENVIADO -> ', result)
                 const failed = result.rejected.concat(result.pending).filter(Boolean)
                 if (failed.length) {
                     throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
@@ -52,3 +52,6 @@ const AuthConfig = {
 
 
 export default AuthConfig;
+
+
+

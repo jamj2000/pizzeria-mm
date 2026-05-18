@@ -143,9 +143,11 @@ async function loginWithMagicLink(prevState, formData) {
 
 
 // --------------------------------- LOGIN OAUTH GOOGLE ------------------------------------ 
-export async function loginGoogle() {
+export async function loginGoogle(formData) {
+    const callbackUrl = formData.get('callbackUrl') || '/'
+
     try {
-        await signIn('google', { redirectTo: globalThis.callbackUrl })
+        await signIn('google', { redirectTo: callbackUrl })
     } catch (error) {
         console.log(error);
         throw error
@@ -156,9 +158,11 @@ export async function loginGoogle() {
 
 
 // --------------------------------- LOGIN OAUTH GITHUB ------------------------------------ 
-export async function loginGithub() {
+export async function loginGithub(formData) {
+    const callbackUrl = formData.get('callbackUrl') || '/'
+
     try {
-        await signIn('github', { redirectTo: globalThis.callbackUrl })
+        await signIn('github', { redirectTo: callbackUrl })
     } catch (error) {
         console.log(error);
         throw error
@@ -167,9 +171,11 @@ export async function loginGithub() {
 
 
 // --------------------------------- LOGIN OAUTH DISCORD ------------------------------------ 
-export async function loginDiscord() {
+export async function loginDiscord(formData) {
+    const callbackUrl = formData.get('callbackUrl') || '/'
+
     try {
-        await signIn('discord', { redirectTo: globalThis.callbackUrl })
+        await signIn('discord', { redirectTo: callbackUrl })
     } catch (error) {
         console.log(error);
         throw error

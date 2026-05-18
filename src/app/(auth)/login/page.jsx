@@ -29,7 +29,7 @@ async function PaginaLogin({ searchParams }) {
   if (sesion) redirect('/dashboard')
 
   return (
-    <div className="relative mt-8 mx-auto flex flex-col gap-2 w-[375px]">
+    <div className="relative mt-8 mx-auto flex flex-col gap-2 max-w-[375px]">
       {/* En Tailwind, la clase peer funciona sólo entre hermanos (siblings) */}
       {/* https://tailwindcss.com/docs/hover-focus-and-other-states#differentiating-peers */}
 
