@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import prisma from "@/lib/prisma"
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { obtenerUsuarioPorId } from "@/lib/data/users"
+import { getUsuarioPorId } from "@/lib/data/users"
 import authConfig from "@/lib/auth.config"
 import Stripe from "stripe"
 
@@ -9,6 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 
 export const options = {
+    trustHost: true,
     session: { strategy: 'jwt' },
     adapter: PrismaAdapter(prisma),
     pages: {
@@ -24,11 +25,11 @@ export const options = {
             session.user.role = token?.role
 
             // Obtener la información actualizada del usuario en cada petición
-            const updatedUser = await obtenerUsuarioPorId(session.user.id)
+            const updatedUser = await getUsuarioPorId(session.user.id)
 
             if (updatedUser) {
                 session.user.name = updatedUser.name; // Actualizar el nombre en la sesión
-                session.user.email = updatedUser.email; // Actualizar el nombre en la sesión
+                session.user.email = updatedUser.email; // Actualizar el email en la sesión
                 session.user.image = updatedUser.image; // Actualizar la imagen en la sesión
             }
 
@@ -37,7 +38,7 @@ export const options = {
         async jwt({ token }) {
             if (!token.sub) return token;
 
-            const user = await obtenerUsuarioPorId(token.sub)
+            const user = await getUsuarioPorId(token.sub)
             if (!user) return token;
 
             token.role = user?.role

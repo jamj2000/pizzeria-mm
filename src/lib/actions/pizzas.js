@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
+import { updateTag } from 'next/cache'
 import { uploadImage } from "@/lib/actions/images"
 
 
@@ -28,7 +28,7 @@ async function insertar(prevState, formData) {
             }
         })
 
-        revalidatePath('/pizzas')
+        updateTag('pizzas')
         return { success: 'Pizza creada' }
     } catch (error) {
         console.error("PIZZA_INSERT_ERROR", error)
@@ -61,7 +61,7 @@ async function modificar(prevState, formData) {
                 ingredientes: { set: ingredientes }
             }
         })
-        revalidatePath('/pizzas')
+        updateTag('pizzas')
         return { success: 'Pizza modificada' }
     } catch (error) {
         console.error("PIZZA_MODIFICAR_ERROR", error)
@@ -77,7 +77,7 @@ async function eliminar(prevState, formData) {
             where: { id }
         })
 
-        revalidatePath('/pizzas')
+        updateTag('pizzas')
         return { success: 'Pizza eliminada' }
     } catch (error) {
         console.error("PIZZA_ELIMINAR_ERROR", error)

@@ -43,7 +43,7 @@ export default function VerifyRequestPage() {
         <div className="flex items-center gap-3">
           <span className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></span>
           <span className="text-[10px] font-black tracking-[0.3em] uppercase text-zinc-500 dark:text-zinc-400">
-            © {new Date().getFullYear()} • Pizzería MM
+            © 2026 • Pizzería MM
           </span>
           <span className="w-12 h-px bg-zinc-300 dark:bg-zinc-700"></span>
         </div>

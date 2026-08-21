@@ -1,7 +1,7 @@
 'use server'
 
 import { signIn, signOut } from '@/lib/auth'
-import { obtenerUsuarioPorEmail } from '@/lib/data/users'
+import { getUsuarioPorEmail } from '@/lib/data/users'
 import prisma from '@/lib/prisma'
 import stripe from '@/lib/stripe'
 import bcrypt from 'bcryptjs'
@@ -18,7 +18,7 @@ async function register(prevState, formData) {
 
     try {
         // Comprobamos si el usuario ya está registrado
-        const user = await obtenerUsuarioPorEmail(email);
+        const user = await getUsuarioPorEmail(email);
 
         if (user) {
             return { error: 'El email ya está registrado' }
@@ -63,7 +63,7 @@ async function login(prevState, formData) {
 
     try {
         // Comprobamos si el usuario está registrado
-        const user = await obtenerUsuarioPorEmail(email);
+        const user = await getUsuarioPorEmail(email);
 
         if (!user) {
             return { error: 'Usuario no registrado.' }

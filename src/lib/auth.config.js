@@ -3,7 +3,7 @@ import GitHub from 'next-auth/providers/github'
 import Discord from 'next-auth/providers/discord'
 import Credentials from "next-auth/providers/credentials"
 import Nodemailer from "next-auth/providers/nodemailer"
-import { obtenerUsuarioPorEmail } from "@/lib/data/users"
+import { getUsuarioPorEmail } from "@/lib/data/users"
 
 import { htmlTemplate, textTemplate } from "@/lib/utils/email-templates"
 import { createTransport } from "nodemailer"
@@ -16,7 +16,7 @@ const AuthConfig = {
         Discord({ allowDangerousEmailAccountLinking: true }),
         Credentials({
             async authorize(credentials) {
-                const user = await obtenerUsuarioPorEmail(credentials.email)
+                const user = await getUsuarioPorEmail(credentials.email)
                 if (!user) return null
                 return { id: user.id, name: user.name, email: user.email, image: user.image, role: user.role }
             },

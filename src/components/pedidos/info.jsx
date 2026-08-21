@@ -25,7 +25,7 @@ export const PedidoInfo = ({ pedido }) => {
                         className="absolute top-2 right-2 text-sm font-bold cursor-pointer">
                         <IconoAtras />
                     </button>
-                    : <Link prefetch
+                    : <Link
                         href={`/pedidos/${pedido.id}`}
                         className="absolute top-2 right-2 text-sm font-bold cursor-pointer">
                         <IconoVer />

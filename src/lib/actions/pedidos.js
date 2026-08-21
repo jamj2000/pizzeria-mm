@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 
 
@@ -32,7 +32,7 @@ async function insertar(prevState, formData) {
             }
         })
 
-        revalidatePath('/pedidos')
+        updateTag('pedidos')
         return { success: 'Pedido registrado correctamente' }
     } catch (error) {
         console.error(error)
@@ -78,7 +78,7 @@ async function modificar(prevState, formData) {
             }
         })
 
-        revalidatePath('/pedidos')
+        updateTag('pedidos')
         return { success: 'Pedido modificado correctamente' }
     } catch (error) {
         console.error(error)
@@ -98,7 +98,7 @@ async function eliminar(prevState, formData) {
             where: { id }
         })
 
-        revalidatePath('/pedidos')
+        updateTag('pedidos')
         return { success: 'Pedido eliminado correctamente' }
     } catch (error) {
         console.error(error)

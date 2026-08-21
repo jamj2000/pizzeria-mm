@@ -2,15 +2,15 @@ import Pizzas from "@/components/pizzas/lista";
 import Link from "next/link";
 import { Spinner2 } from "@/components/ui/spinners";
 import { Suspense } from "react";
-import { obtenerPizzas } from "@/lib/data/pizzas";
-import { obtenerIngredientes } from "@/lib/data/ingredientes";
+import { getPizzas } from "@/lib/data/pizzas";
+import { getIngredientes } from "@/lib/data/ingredientes";
 import { auth } from "@/lib/auth";
 
 export const metadata = { title: "Pizzería MM - Pizzas" }
 
 
 
-export default async function PaginaPizzas() {
+export default function PaginaPizzas() {
 
     return (
         <div>
@@ -18,12 +18,8 @@ export default async function PaginaPizzas() {
             <h1 className="text-3xl font-bold mb-4">LISTA DE PIZZAS</h1>
 
 
-            <Suspense fallback={<Spinner2 />}>
-                <Pizzas
-                    promesaPizzas={obtenerPizzas()}
-                    promesaIngredientes={obtenerIngredientes()}
-                    promesaSession={auth()}
-                />
+            <Suspense fallback={"..."}>
+                <Contenido />
             </Suspense>
         </div>
 
@@ -33,3 +29,21 @@ export default async function PaginaPizzas() {
 
 
 
+async function Contenido() {
+
+    const [
+        pizzas,
+        ingredientes,
+        session
+    ] = await Promise.all([
+        getPizzas(),
+        getIngredientes(),
+        auth()
+    ])
+
+    return <Pizzas
+        pizzas={pizzas}
+        ingredientes={ingredientes}
+        session={session}
+    />
+}

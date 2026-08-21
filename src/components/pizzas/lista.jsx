@@ -1,7 +1,6 @@
 'use client'
 import Modal from "@/components/ui/modal";
 import Form from "@/components/pizzas/form";
-import { use } from "react";
 import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/icons";
 import { labelInsertar, labelModificar, labelEliminar } from "@/components/ui/labels";
 import { eliminar, insertar, modificar } from "@/lib/actions/pizzas";
@@ -11,14 +10,11 @@ import usePizzas from "@/components/pizzas/hooks/usePizzas";
 
 
 export default function List({
-    promesaPizzas,
-    promesaIngredientes,
-    promesaSession
+    pizzas,
+    ingredientes,
+    session
 }) {
 
-    const pizzas = use(promesaPizzas)
-    const ingredientes = use(promesaIngredientes)
-    const session = use(promesaSession)
 
     const isAdminSession = session?.user.role === 'ADMIN'
 

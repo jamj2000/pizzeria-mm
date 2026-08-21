@@ -2,12 +2,12 @@
 import sortBy from '@/lib/utils/sort';
 import { useState } from 'react';
 
-export default function usePizzas(dataPizzas) {
+export default function usePizzas(pizzas) {
     const [propiedad, setPropiedad] = useState('nombre');
     const [orden, setOrden] = useState('asc');
     const [buscar, setBuscar] = useState('');
 
-    let pizzasFiltradas = sortBy(dataPizzas, propiedad, orden);
+    let pizzasFiltradas = sortBy(pizzas, propiedad, orden);
 
     if (buscar) {
         const busqueda = buscar.toLowerCase();

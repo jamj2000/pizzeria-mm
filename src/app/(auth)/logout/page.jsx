@@ -2,8 +2,17 @@ import { logout } from "@/lib/actions/auth"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { Lock } from "lucide-react"
+import { Suspense } from "react"
 
-async function page() {
+export default function page() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <ContenidoLogout />
+    </Suspense>
+  )
+}
+
+async function ContenidoLogout() {
   const sesion = await auth()
 
   if (sesion) {
@@ -22,5 +31,3 @@ async function page() {
     redirect('/login')
   }
 }
-
-export default page

@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
+import { updateTag } from 'next/cache'
 
 
 
@@ -13,7 +13,7 @@ async function insertar(prevState, formData) {
         await prisma.repartidor.create({
             data: { nombre, telefono }
         })
-        revalidatePath('/repartidores')
+        updateTag('repartidores')
         return { success: 'Repartidor guardado' }
     } catch (error) {
         console.error("INSERTAR_REPARTIDOR_ERROR", error)
@@ -35,7 +35,7 @@ async function modificar(prevState, formData) {
             where: { id },
             data: { nombre, telefono }
         })
-        revalidatePath('/repartidores')
+        updateTag('repartidores')
         return { success: 'Repartidor modificado' }
     } catch (error) {
         console.error("MODIFICAR_REPARTIDOR_ERROR", error)
@@ -54,7 +54,7 @@ async function eliminar(prevState, formData) {
         await prisma.repartidor.delete({
             where: { id }
         })
-        revalidatePath('/repartidores')
+        updateTag('repartidores')
         return { success: 'Repartidor eliminado' }
     } catch (error) {
         console.error("ELIMINAR_REPARTIDOR_ERROR", error)

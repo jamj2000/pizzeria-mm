@@ -40,7 +40,7 @@ export default async function Header() {
       <div className='flex gap-2 items-center' >
         {/* Sesión */}
         {session &&
-          <Link prefetch
+          <Link
             href="/dashboard"
             className="w-full rounded-full hover:outline hover:outline-slate-600 cursor-pointer" >
             {session.user.image ? <img src={session.user.image} className='size-10 rounded-full' /> : <UserRoundIcon className='size-10 p-2' />}

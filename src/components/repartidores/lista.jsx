@@ -12,8 +12,8 @@ import Filtro from "./filtro";
 
 
 
-export default function Repartidores({ promesaRepartidores }) {
-    const repartidores = use(promesaRepartidores)
+export default function Repartidores({ repartidores }) {
+
 
     const {
         repartidoresFiltrados,

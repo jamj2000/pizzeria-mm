@@ -38,7 +38,7 @@ export const PizzaInfo = ({ pizza }) => {
                         className="absolute top-2 right-2 text-sm font-bold cursor-pointer">
                         <IconoAtras />
                     </button>
-                    : <Link prefetch
+                    : <Link
                         href={`/pizzas/${pizza.id}`}
                         className="absolute top-2 right-2 text-sm font-bold cursor-pointer">
                         <IconoVer />

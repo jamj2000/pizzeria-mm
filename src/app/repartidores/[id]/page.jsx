@@ -1,43 +1,35 @@
 import { Suspense } from "react";
-import { Spinner2 } from "@/components/ui/spinners";
 import BackButton from "@/components/ui/back-button";
 
 import { auth } from "@/lib/auth";
-import { obtenerRepartidor } from "@/lib/data/repartidores";
+import { getRepartidor } from "@/lib/data/repartidores";
 import { redirect } from "next/navigation";
 
 import { notFound } from "next/navigation";
-import { use } from "react";
 
 
 
-export default async function PaginaRepartidor({ params, searchParams }) {
-    const { id } = await params
-
-    const session = await auth()
-    if (session?.user.role !== 'ADMIN') redirect('/dashboard')
-
-
+export default function PaginaRepartidor({ params }) {
     return (
         <div>
             <BackButton />
             <div className="h-20">{/* Hueco de separación */}</div>
 
-            <Suspense fallback={<Spinner2 />}>
-                <Repartidor promesaRepartidor={obtenerRepartidor(id)} />
+            <Suspense fallback={"..."}>
+                <Repartidor paramsPromise={params} />
             </Suspense>
         </div>
     )
-
 }
 
 
 
+async function Repartidor({ paramsPromise }) {
+    const { id } = await paramsPromise
+    const session = await auth()
+    if (session?.user?.role !== 'ADMIN') redirect('/dashboard')
 
-
-function Repartidor({ promesaRepartidor }) {
-    const repartidor = use(promesaRepartidor)
-
+    const repartidor = await getRepartidor(id)
     if (!repartidor) notFound()
 
     return (

@@ -1,6 +1,6 @@
 'use server'
 import bcrypt from 'bcryptjs'
-import { obtenerUsuarioPorEmail } from '@/lib/data/users'
+import { getUsuarioPorEmail } from '@/lib/data/users'
 import { revalidatePath } from 'next/cache'
 
 import stripe from '@/lib/stripe'
@@ -17,7 +17,7 @@ async function newUser(prevState, formData) {
     const image = formData.get('image');
     const role = formData.get('role');
 
-    const user = await obtenerUsuarioPorEmail(email)
+    const user = await getUsuarioPorEmail(email)
     if (user) return { error: 'Este email ya está registrado.' }
 
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -75,7 +75,7 @@ async function editUser(prevState, formData) {
 
         // 2. Si el email ha cambiado, verificar que el nuevo no esté registrado por otro usuario
         if (email !== existingUser.email) {
-            const userWithNewEmail = await obtenerUsuarioPorEmail(email)
+            const userWithNewEmail = await getUsuarioPorEmail(email)
             if (userWithNewEmail) return { error: 'Este email ya está registrado por otro usuario.' }
         }
 

@@ -20,8 +20,18 @@ errors.set('SessionRequired', "Error al iniciar sesión. Verifique que los detal
 errors.set('Default', "No se puede iniciar sesión.");
 
 
-async function PaginaLogin({ searchParams }) {
-  const { error, callbackUrl } = await searchParams
+import { Suspense } from 'react';
+
+export default function PaginaLogin({ searchParams }) {
+  return (
+    <Suspense fallback={<div className="mt-8 mx-auto max-w-[375px] text-center">Cargando...</div>}>
+      <ContenidoLogin searchParamsPromise={searchParams} />
+    </Suspense>
+  )
+}
+
+async function ContenidoLogin({ searchParamsPromise }) {
+  const { error, callbackUrl } = await searchParamsPromise
   globalThis.callbackUrl = callbackUrl
 
   const sesion = await auth()
@@ -71,7 +81,6 @@ async function PaginaLogin({ searchParams }) {
         <Mail />
       </label>
 
-
       <input
         id="signoauth"
         title="Iniciar sesión OAuth"
@@ -85,7 +94,6 @@ async function PaginaLogin({ searchParams }) {
         <Globe />
       </label>
 
-
       <RegisterCredentials className="hidden peer-checked/register:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       <LoginForm className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       <LoginMagicLink className="hidden peer-checked/magic:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
@@ -94,5 +102,3 @@ async function PaginaLogin({ searchParams }) {
     </div>
   )
 }
-
-export default PaginaLogin

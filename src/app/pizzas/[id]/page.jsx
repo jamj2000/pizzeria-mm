@@ -1,28 +1,22 @@
-import { Spinner2 } from "@/components/ui/spinners";
 import { Suspense } from "react";
-import { obtenerPizza } from "@/lib/data/pizzas";
-import { use } from "react";
+import { getPizza } from "@/lib/data/pizzas";
 import { notFound } from "next/navigation";
 import { PizzaInfo } from "@/components/pizzas/info";
 
 
 
 
-export default async function PaginaPizza({ params, searchParams }) {
-    const { id } = await params
-
+export default function PaginaPizza({ params }) {
     return (
-        <Suspense fallback={<Spinner2 />}>
-            <Pizza promesaPizza={obtenerPizza(id)} />
+        <Suspense fallback={"..."}>
+            <Pizza paramsPromise={params} />
         </Suspense>
     )
-
 }
 
-
-
-function Pizza({ promesaPizza }) {
-    const pizza = use(promesaPizza)
+async function Pizza({ paramsPromise }) {
+    const { id } = await paramsPromise
+    const pizza = await getPizza(id)
     if (!pizza) notFound()
 
     return <PizzaInfo pizza={pizza} />

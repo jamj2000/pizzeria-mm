@@ -3,15 +3,15 @@ import { logout } from "@/lib/actions/auth";
 import { LockIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Suspense, use } from "react";
-import { obtenerUsuarios } from "@/lib/data/users";
-import { obtenerUsuarioPorId } from "@/lib/data/users";
+import { getUsuarios } from "@/lib/data/users";
+import { getUsuarioPorId } from "@/lib/data/users";
 import { IconoEliminar, IconoModificar } from "@/components/ui/icons";
 import { editUser } from "@/lib/actions/users";
 import { labelModificar } from "@/components/ui/labels";
 import Form from "@/components/users/form";
 import Modal from "@/components/ui/modal";
 import ListaUsuarios from "@/components/users/lista";
-import { obtenerPedidos } from "@/lib/data/pedidos";
+import { getPedidos } from "@/lib/data/pedidos";
 import { Spinner1, Spinner2 } from "@/components/ui/spinners";
 import Estado from "@/components/pedidos/estado";
 import { PedidoCard } from "@/components/pedidos/info";
@@ -19,14 +19,7 @@ import Link from 'next/link'
 
 export const metadata = { title: "Pizzería MM - Dashboard" }
 
-
-export default async function Dashboard() {
-    const session = await auth()
-
-    if (!session) redirect('/login')
-
-    const isAdminSession = session?.user?.role === 'ADMIN'
-
+export default function Dashboard() {
     return (
         <div>
             <div className="flex justify-between">
@@ -38,32 +31,42 @@ export default async function Dashboard() {
                 </form>
             </div>
 
-            <Suspense fallback={<Spinner2 />}>
-                <UserInfo session={session} />
+            <Suspense fallback={"..."}>
+                <ContenidoDashboard />
             </Suspense>
+        </div >
+    )
+}
 
+async function ContenidoDashboard() {
+    const session = await auth()
+    if (!session) redirect('/login')
 
+    const isAdminSession = session?.user?.role === 'ADMIN'
+
+    return (
+        <>
+            <UserInfo session={session} />
 
             {isAdminSession &&
                 <>
                     <h1 className="text-xl font-bold mt-15">Lista de usuarios</h1>
                     <Suspense fallback={<Spinner1 />}>
-                        <ListaUsuarios session={session} promesaUsuarios={obtenerUsuarios()} />
+                        <ListaUsuarios session={session} promesaUsuarios={getUsuarios()} />
                     </Suspense>
                 </>
             }
-
 
             <Link href="/pedidos">
                 <h1 className="text-xl font-bold mt-15 mb-8">Lista de pedidos</h1>
             </Link>
             <Suspense fallback={<Spinner1 />}>
                 {isAdminSession
-                    ? <UserPedidos isAdminSession={isAdminSession} promesaPedidos={obtenerPedidos()} /> // Todos los pedidos
-                    : <UserPedidos isAdminSession={isAdminSession} promesaPedidos={obtenerPedidos(session.user.id)} />
+                    ? <UserPedidos isAdminSession={isAdminSession} promesaPedidos={getPedidos()} />
+                    : <UserPedidos isAdminSession={isAdminSession} promesaPedidos={getPedidos(session.user.id)} />
                 }
             </Suspense>
-        </div >
+        </>
     )
 }
 
@@ -76,7 +79,7 @@ export default async function Dashboard() {
 
 async function UserInfo({ session }) {
 
-    const usuario = await obtenerUsuarioPorId(session.user.id)
+    const usuario = await getUsuarioPorId(session.user.id)
     const isAdminSession = session.user.role === 'ADMIN'
 
     return (

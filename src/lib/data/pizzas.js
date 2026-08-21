@@ -1,10 +1,11 @@
 'use server'
 
 import prisma from "@/lib/prisma"
+import { cacheTag } from "next/cache"
 
 
 
-export async function obtenerLotePizzas(offset, limit = 5) {
+export async function getLotePizzas(offset, limit = 5) {
     const pizzas = await prisma.pizza.findMany({
         skip: offset,
         take: limit,
@@ -17,7 +18,10 @@ export async function obtenerLotePizzas(offset, limit = 5) {
 
 
 
-export async function obtenerPizzas() {
+export async function getPizzas() {
+    'use cache'
+    cacheTag('pizzas')
+
     try {
         const pizzas = await prisma.pizza.findMany({
             include: { ingredientes: true }
@@ -33,7 +37,11 @@ export async function obtenerPizzas() {
 
 
 
-export async function obtenerPizza(id) {
+export async function getPizza(id) {
+    'use cache'
+    cacheTag('pizzas', `pizza:${id}`)
+
+
     if (Number.isInteger(parseInt(id)) == false) return null
 
     const pizza = await prisma.pizza.findUnique({

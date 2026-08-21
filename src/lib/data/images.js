@@ -3,7 +3,7 @@
 import cloudinary from "@/lib/cloudinary";
 
 
-export async function obtenerImagenes() {
+export async function getImagenes() {
     const result = await cloudinary.api.resources_by_asset_folder('pizzeria', {
         max_results: 500
     });

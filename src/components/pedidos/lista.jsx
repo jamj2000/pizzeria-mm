@@ -15,18 +15,13 @@ import { PedidoCard, PedidoInfo } from "./info"
 
 
 export default function List({
-    promesaPedidos,
-    promesaRepartidores,
-    promesaPizzas,
-    promesaClientes,
-    promesaSession
+    pedidos,
+    repartidores,
+    pizzas,
+    clientes,
+    session
 }) {
 
-    const pedidos = use(promesaPedidos)
-    const repartidores = use(promesaRepartidores)
-    const clientes = use(promesaClientes)
-    const pizzas = use(promesaPizzas)
-    const session = use(promesaSession)
     const user = session?.user
 
     const isAdminSession = session?.user?.role === 'ADMIN'
