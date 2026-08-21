@@ -1,10 +1,18 @@
-import { PrismaClient } from '@prisma/client';
 import { createId as cuid } from '@paralleldrive/cuid2';
 import bcrypt from 'bcryptjs'
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
-const prisma = new PrismaClient();
+
+import "dotenv/config";
+import { PrismaClient } from "../src/generated/prisma/client"
+const connectionString = process.env.DATABASE_URL
+
+
+import { PrismaPg } from "@prisma/adapter-pg";
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
+
 
 
 

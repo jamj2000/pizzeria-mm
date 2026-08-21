@@ -28,7 +28,7 @@ export default function SendMailPage() {
     }
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-[#ff9a9e] to-[#fad0c4] p-4 font-sans">
+        <div className="min-h-screen flex justify-center items-center bg-linear-to-br from-[#ff9a9e] to-[#fad0c4] p-4 font-sans">
             <form
                 onSubmit={handleSubmit}
                 className="bg-white/80 p-8 rounded-2xl shadow-2xl shadow-gray-900/20 w-full max-w-[420px] backdrop-blur-md border border-white/20"
@@ -83,8 +83,8 @@ export default function SendMailPage() {
                     type="submit"
                     disabled={loading}
                     className={`w-full p-4 text-white rounded-xl text-lg font-bold shadow-xl transition-all duration-300 transform active:scale-95 ${loading
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-[#ff6f61] hover:bg-[#ff5a4d] shadow-[#ff6f61]/30 hover:shadow-[#ff6f61]/40'
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-[#ff6f61] hover:bg-[#ff5a4d] shadow-[#ff6f61]/30 hover:shadow-[#ff6f61]/40'
                         }`}
                 >
                     {loading ? (
@@ -103,8 +103,8 @@ export default function SendMailPage() {
                 {result && (
                     <div
                         className={`mt-6 p-4 rounded-xl border animate-in fade-in slide-in-from-top-2 duration-300 ${result.success
-                                ? 'bg-green-50 border-green-200 text-green-800'
-                                : 'bg-red-50 border-red-200 text-red-800'
+                            ? 'bg-green-50 border-green-200 text-green-800'
+                            : 'bg-red-50 border-red-200 text-red-800'
                             }`}
                     >
                         <div className="flex items-center gap-2 mb-2 font-bold">

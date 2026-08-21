@@ -1,8 +1,8 @@
-import Google from "@auth/core/providers/google"
-import GitHub from '@auth/core/providers/github'
-import Discord from '@auth/core/providers/discord'
-import Credentials from "@auth/core/providers/credentials"
-import Nodemailer from "@auth/core/providers/nodemailer"
+import Google from "next-auth/providers/google"
+import GitHub from 'next-auth/providers/github'
+import Discord from 'next-auth/providers/discord'
+import Credentials from "next-auth/providers/credentials"
+import Nodemailer from "next-auth/providers/nodemailer"
 import { obtenerUsuarioPorEmail } from "@/lib/data/users"
 
 import { htmlTemplate, textTemplate } from "@/lib/utils/email-templates"

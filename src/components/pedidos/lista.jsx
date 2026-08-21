@@ -14,13 +14,13 @@ import { PedidoCard, PedidoInfo } from "./info"
 
 
 
-export default ({
+export default function List({
     promesaPedidos,
     promesaRepartidores,
     promesaPizzas,
     promesaClientes,
     promesaSession
-}) => {
+}) {
 
     const pedidos = use(promesaPedidos)
     const repartidores = use(promesaRepartidores)

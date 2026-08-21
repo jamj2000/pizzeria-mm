@@ -10,11 +10,11 @@ import Filtro from "./filtro";
 import usePizzas from "@/components/pizzas/hooks/usePizzas";
 
 
-export default ({
+export default function List({
     promesaPizzas,
     promesaIngredientes,
     promesaSession
-}) => {
+}) {
 
     const pizzas = use(promesaPizzas)
     const ingredientes = use(promesaIngredientes)

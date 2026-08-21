@@ -143,7 +143,7 @@ async function loginWithMagicLink(prevState, formData) {
 
 
 // --------------------------------- LOGIN OAUTH GOOGLE ------------------------------------ 
-export async function loginGoogle(formData) {
+async function loginGoogle(formData) {
     const callbackUrl = formData.get('callbackUrl') || '/'
 
     try {
@@ -158,7 +158,7 @@ export async function loginGoogle(formData) {
 
 
 // --------------------------------- LOGIN OAUTH GITHUB ------------------------------------ 
-export async function loginGithub(formData) {
+async function loginGithub(formData) {
     const callbackUrl = formData.get('callbackUrl') || '/'
 
     try {
@@ -171,7 +171,7 @@ export async function loginGithub(formData) {
 
 
 // --------------------------------- LOGIN OAUTH DISCORD ------------------------------------ 
-export async function loginDiscord(formData) {
+async function loginDiscord(formData) {
     const callbackUrl = formData.get('callbackUrl') || '/'
 
     try {

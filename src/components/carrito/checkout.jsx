@@ -11,7 +11,7 @@ import { crearSesionPago } from '@/lib/actions/checkout'
 import { DEFAULT_PIZZA_IMAGE } from "@/lib/constants"
 
 
-export default ({ session }) => {
+export default function Checkout({ session }) {
     const { user } = use(session) || {} // Resolvemos promesa de forma segura
     const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useStore()
     const [mounted, setMounted] = useState(false)

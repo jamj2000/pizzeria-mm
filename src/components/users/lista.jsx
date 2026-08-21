@@ -12,7 +12,7 @@ import Estado from './estado';
 
 
 
-export default ({ session, promesaUsuarios }) => {
+export default function List({ session, promesaUsuarios }) {
     const users = use(promesaUsuarios)
     const isAdminSession = session?.user?.role === 'ADMIN'
 

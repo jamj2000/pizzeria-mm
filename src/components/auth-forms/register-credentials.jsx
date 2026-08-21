@@ -7,7 +7,7 @@ import { Spinner1 } from '@/components/ui/spinners';
 
 
 
-export default ({ callbackUrl, className, error }) => {
+export default function RegisterCredentials({ callbackUrl, className, error }) {
 
     const [state, action, pending] = useActionState(register, {})
 
