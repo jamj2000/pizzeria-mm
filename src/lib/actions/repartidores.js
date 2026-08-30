@@ -5,7 +5,7 @@ import { updateTag } from 'next/cache'
 
 
 
-async function insertar(prevState, formData) {
+export async function createRepartidor(prevState, formData) {
     const nombre = formData.get('nombre')
     const telefono = formData.get('telefono')
 
@@ -14,10 +14,10 @@ async function insertar(prevState, formData) {
             data: { nombre, telefono }
         })
         updateTag('repartidores')
-        return { success: 'Repartidor guardado' }
+        return { type: 'success', message: 'Repartidor guardado' }
     } catch (error) {
         console.error("INSERTAR_REPARTIDOR_ERROR", error)
-        return { error: 'Error al guardar el repartidor' }
+        return { type: 'error', error: 'Error al guardar el repartidor' }
     }
 }
 
@@ -25,7 +25,7 @@ async function insertar(prevState, formData) {
 
 
 
-async function modificar(prevState, formData) {
+export async function updateRepartidor(prevState, formData) {
     const id = Number(formData.get('id'))
     const nombre = formData.get('nombre')
     const telefono = formData.get('telefono')
@@ -36,10 +36,10 @@ async function modificar(prevState, formData) {
             data: { nombre, telefono }
         })
         updateTag('repartidores')
-        return { success: 'Repartidor modificado' }
+        return { type: 'success', message: 'Repartidor modificado' }
     } catch (error) {
         console.error("MODIFICAR_REPARTIDOR_ERROR", error)
-        return { error: 'Error al modificar el repartidor' }
+        return { type: 'error', error: 'Error al modificar el repartidor' }
     }
 }
 
@@ -47,7 +47,7 @@ async function modificar(prevState, formData) {
 
 
 
-async function eliminar(prevState, formData) {
+export async function deleteRepartidor(prevState, formData) {
     const id = Number(formData.get('id'))
 
     try {
@@ -55,17 +55,11 @@ async function eliminar(prevState, formData) {
             where: { id }
         })
         updateTag('repartidores')
-        return { success: 'Repartidor eliminado' }
+        // return { type: 'success', message: 'Repartidor eliminado' }
     } catch (error) {
         console.error("ELIMINAR_REPARTIDOR_ERROR", error)
-        return { error: 'Error al eliminar el repartidor' }
+        return { type: 'error', error: 'Error al eliminar el repartidor' }
     }
 }
 
 
-
-export {
-    insertar,
-    modificar,
-    eliminar
-}

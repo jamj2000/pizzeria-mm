@@ -38,6 +38,6 @@ const store = (set, get) => ({
 })
 
 
-export const useStore = create(
+export const useCart = create(
     persist(store, { name: 'cart-storage' })
 )

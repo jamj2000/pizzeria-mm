@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useStore } from '@/lib/store/cart'
+import { useCart } from '@/lib/store/cart'
 import Link from 'next/link'
 import { CheckCircleIcon } from 'lucide-react'
 
 export default function PagoExitoPage() {
-    const { clearCart } = useStore()
+    const { clearCart } = useCart()
 
     useEffect(() => {
         clearCart()

@@ -1,19 +1,15 @@
 'use client'
 
-import { useStore } from "@/lib/store/cart"
+import { useCart } from "@/lib/store/cart"
 import { ShoppingCartIcon } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
-
+const emptySubscribe = () => () => { }
 
 export default function CartWidget() {
-    const { cart } = useStore()
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    const { cart } = useCart()
+    const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
 
     if (!mounted) {
         return (

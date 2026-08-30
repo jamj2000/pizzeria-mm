@@ -6,70 +6,89 @@ import { uploadImage } from "@/lib/actions/images"
 
 
 
-async function insertar(prevState, formData) {
+export async function createPizza(prevState, formData) {
     const nombre = formData.get('nombre')
     const precio = Number(formData.get('precio'))
-    const file = formData.get('file')
+    let foto = formData.get('foto')     // Tipo file
+
+    const ingredientes = formData.getAll('ingredientes').map(id => ({ id: Number(id) }))
 
     try {
-        let foto = null
-        if (file.size > 0) {
-            foto = await uploadImage(file)
-        }
+        // si tenemos nuevo archivo en el input type=file
+        if (foto.size > 0)
+            foto = await uploadImage(foto)
+        else
+            foto = null
 
-        const ingredientes = formData.getAll('ingredientes').map(id => ({ id: Number(id) }))
 
         await prisma.pizza.create({
             data: {
                 nombre,
                 precio,
-                foto,
+                ...(foto && { foto }),
                 ingredientes: { connect: ingredientes }
             }
         })
 
         updateTag('pizzas')
-        return { success: 'Pizza creada' }
+        return {
+            type: "success",
+            message: 'Pizza creada'
+        }
     } catch (error) {
         console.error("PIZZA_INSERT_ERROR", error)
-        return { error: 'Error al crear la pizza. Inténtalo de nuevo.' }
+        return {
+            type: "error",
+            message: 'Error al crear la pizza. Inténtalo de nuevo.'
+        }
     }
 }
 
-async function modificar(prevState, formData) {
+
+
+
+export async function updatePizza(prevState, formData) {
     const id = Number(formData.get('id'))
     const nombre = formData.get('nombre')
     const precio = Number(formData.get('precio'))
-    const file = formData.get('file')
+    let foto = formData.get('foto')     // Tipo file
+
+    const ingredientes = formData.getAll('ingredientes').map(id => ({ id: Number(id) }))
 
     try {
-        const existingPizza = await prisma.pizza.findUnique({ where: { id } })
+        // si tenemos nuevo archivo en el input type=file
+        if (foto.size > 0)
+            foto = await uploadImage(foto)
+        else
+            foto = null
 
-        let foto = existingPizza?.foto ?? null
-        if (file.size > 0) {
-            foto = await uploadImage(file)
-        }
-
-        const ingredientes = formData.getAll('ingredientes').map(id => ({ id: Number(id) }))
 
         await prisma.pizza.update({
             where: { id },
             data: {
                 nombre,
                 precio,
-                foto,
+                ...(foto && { foto }),
                 ingredientes: { set: ingredientes }
             }
         })
         updateTag('pizzas')
-        return { success: 'Pizza modificada' }
+        return {
+            type: "success",
+            message: 'Pizza modificada'
+        }
     } catch (error) {
         console.error("PIZZA_MODIFICAR_ERROR", error)
-        return { error: 'Error al modificar la pizza. Inténtalo de nuevo.' }
+        return {
+            type: "error",
+            message: 'Error al modificar la pizza. Inténtalo de nuevo.'
+        }
     }
 }
 
-async function eliminar(prevState, formData) {
+
+
+export async function deletePizza(prevState, formData) {
     const id = Number(formData.get('id'))
 
     try {
@@ -78,20 +97,19 @@ async function eliminar(prevState, formData) {
         })
 
         updateTag('pizzas')
-        return { success: 'Pizza eliminada' }
+        // return {
+        //     type: "success",
+        //     message: 'Pizza eliminada'
+        // }
     } catch (error) {
         console.error("PIZZA_ELIMINAR_ERROR", error)
-        return { error: 'Error al eliminar la pizza. Inténtalo de nuevo.' }
+        return {
+            type: "error",
+            message: 'Error al eliminar la pizza. Inténtalo de nuevo.'
+        }
     }
 }
 
 
 
-
-
-export {
-    insertar,
-    modificar,
-    eliminar
-}
 

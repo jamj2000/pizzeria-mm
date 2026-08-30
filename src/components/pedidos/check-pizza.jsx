@@ -1,5 +1,5 @@
 'use client'
-import { DEFAULT_PIZZA_IMAGE } from "@/lib/constants"
+import { defaultImage } from "@/lib/constants"
 import { MinusIcon, PlusIcon } from "lucide-react"
 import { useState } from "react"
 
@@ -15,7 +15,7 @@ export default function CheckPizza({ pizza, cant = 0, disabled = false }) {
             <input type="hidden" name={`pizzas`} value={JSON.stringify({ id: pizza.id, cantidad })} />
 
             <img
-                src={pizza.foto || DEFAULT_PIZZA_IMAGE}
+                src={pizza.foto || defaultImage}
                 alt={pizza.nombre}
                 className="size-16 object-cover rounded-md"
             />

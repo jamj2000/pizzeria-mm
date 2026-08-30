@@ -1,31 +1,60 @@
 import { Suspense } from "react";
-import Repartidores from "@/components/repartidores/lista";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect, } from "next/navigation";
 import { getRepartidores } from "@/lib/data/repartidores";
-
+import { List } from "@/components/simpleui";
+import { CreateRepartidor, ViewRepartidor, UpdateRepartidor, DeleteRepartidor, CardRepartidor } from "@/components/repartidores";
 
 export const metadata = { title: "Pizzería MM - Repartidores" }
 
-export default function PaginaRepartidores() {
+
+
+export default function Page() {
     return (
-        <div>
-            <Link href="/" className="text-5xl">🏡</Link>
-            <h1 className="text-3xl font-bold mb-4">LISTA DE REPARTIDORES</h1>
+        <div className='container mx-auto px-4 py-10 flex flex-col'>
+            <h1 className="text-3xl font-bold mb-4">REPARTIDORES</h1>
 
             <Suspense fallback={"..."}>
-                <ContenidoRepartidores />
+                <Content />
             </Suspense>
         </div>
     )
 }
 
-async function ContenidoRepartidores() {
+
+
+
+async function Content() {
     const session = await auth()
     if (session?.user?.role !== 'ADMIN') redirect('/dashboard')
 
-    return <Repartidores repartidores={await getRepartidores()} />
+
+    const repartidores = await getRepartidores()
+
+    return (
+        <List
+            prefix="/repartidores"
+            card={CardRepartidor}
+            data={repartidores}
+            columns={[
+                { name: "nombre", label: "Nombre" },
+                { name: "telefono", label: "Teléfono" },
+            ]}
+            actions={[
+                // ViewRepartidor,
+                UpdateRepartidor,
+                DeleteRepartidor
+            ]}
+            sort="nombre"
+        >
+            <div className="flex justify-between">
+                <h2 className="text-2xl text-center inline"></h2>
+                <CreateRepartidor />
+            </div>
+        </List>
+    )
+
 }
 
 

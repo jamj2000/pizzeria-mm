@@ -30,3 +30,17 @@ export async function getIngrediente(id) {
 }
 
 
+
+export async function getIngredientesIdNombre() {
+    'use cache'
+
+    cacheTag('ingredientes', 'ingredientes:id-nombre')
+
+    const ingredientes = await prisma.ingrediente.findMany({
+        select: {
+            id: true,
+            nombre: true
+        }
+    })
+    return ingredientes
+}

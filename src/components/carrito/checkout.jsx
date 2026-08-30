@@ -1,25 +1,22 @@
 'use client'
 
-import { useStore } from "@/lib/store/cart"
-import { use, useEffect, useState } from "react"
-import { toast } from "sonner"
+import { useCart } from "@/lib/store/cart"
+import { use, useState, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { Trash2, Minus, Plus } from "lucide-react"
 import { Spinner3 } from "@/components/ui/spinners"
 
 import { crearSesionPago } from '@/lib/actions/checkout'
-import { DEFAULT_PIZZA_IMAGE } from "@/lib/constants"
+import { defaultImage } from "@/lib/constants"
+import Image from "next/image"
 
+const subscribe = () => () => { }
 
 export default function Checkout({ session }) {
     const { user } = use(session) || {} // Resolvemos promesa de forma segura
-    const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useStore()
-    const [mounted, setMounted] = useState(false)
+    const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart()
+    const mounted = useSyncExternalStore(subscribe, () => true, () => false)
     const [isPending, setIsPending] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
 
     if (!mounted) return null
 
@@ -61,8 +58,10 @@ export default function Checkout({ session }) {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
                 {cart.map((item) => (
                     <div key={item.id} className="flex flex-col md:flex-row items-center gap-4 py-1 px-4 even:bg-indigo-100 odd:bg-slate-100">
-                        <img
-                            src={item.foto || DEFAULT_PIZZA_IMAGE}
+                        <Image
+                            width={100}
+                            height={100}
+                            src={item.foto || defaultImage}
                             alt={item.nombre}
                             className="size-16 object-cover rounded-md"
                         />
