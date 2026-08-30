@@ -26,3 +26,21 @@ export async function getRepartidor(id) {
     })
     return repartidor
 }
+
+
+
+
+
+export async function getRepartidoresIdNombre() {
+    'use cache'
+
+    cacheTag('repartidores', 'repartidores:id-nombre')
+
+    const repartidores = await prisma.repartidor.findMany({
+        select: {
+            id: true,
+            nombre: true
+        }
+    })
+    return repartidores
+}

@@ -52,3 +52,19 @@ export async function getPizza(id) {
     return pizza
 }
 
+
+
+
+export async function getPizzasIdNombre() {
+    'use cache'
+
+    cacheTag('pizzas', 'pizzas:id-nombre')
+
+    const pizzas = await prisma.pizza.findMany({
+        select: {
+            id: true,
+            nombre: true
+        }
+    })
+    return pizzas
+}

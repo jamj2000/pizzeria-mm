@@ -2,7 +2,7 @@
 
 import { use } from "react"
 import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/icons"
-import { eliminar, insertar, modificar } from "@/lib/actions/pedidos"
+import { deletePedido, createPedido, updatePedido } from "@/lib/actions/pedidos"
 import { labelEliminar, labelInsertar, labelModificar } from "@/components/ui/labels"
 import Modal from "@/components/ui/modal"
 import Estado from "@/components/pedidos/estado"
@@ -37,7 +37,7 @@ export default function List({
     const Insertar = () =>
         <Modal trigger={<IconoInsertar className="self-end" />}>
             <Form
-                action={insertar}
+                action={createPedido}
                 repartidores={repartidores}
                 clientes={clientes}
                 pizzas={pizzas}
@@ -50,7 +50,7 @@ export default function List({
     const Modificar = ({ pedido }) =>
         <Modal trigger={<IconoModificar className="self-end" />}>
             <Form
-                action={modificar}
+                action={updatePedido}
                 pedido={pedido}
                 repartidores={repartidores}
                 clientes={clientes}
@@ -64,7 +64,7 @@ export default function List({
     const Eliminar = ({ pedido }) =>
         <Modal trigger={<IconoEliminar />}>
             <Form
-                action={eliminar}
+                action={deletePedido}
                 pedido={pedido}
                 repartidores={repartidores}
                 clientes={clientes}

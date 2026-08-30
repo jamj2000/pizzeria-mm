@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma"
 import { cacheTag } from "next/cache";
 
 
+
+
 export async function getUsuarios() {
     'use cache'
     cacheTag('users')
@@ -16,7 +18,12 @@ export async function getUsuarios() {
 
 
 
+
+
 export async function getUsuarioBasicoPorId(id) {
+    'use cache'
+    cacheTag('users', `user-${id}`)
+
     if (!id) return null;
     try {
         const user = await prisma.user.findUnique({
@@ -30,6 +37,10 @@ export async function getUsuarioBasicoPorId(id) {
         return null
     }
 }
+
+
+
+
 
 export async function getUsuarioPorId(id) {
     try {
@@ -58,6 +69,8 @@ export async function getUsuarioPorId(id) {
 
 
 
+
+
 export async function getUsuarioPorEmail(email) {
     const user = await prisma.user.findUnique({
         where: { email }
@@ -66,3 +79,19 @@ export async function getUsuarioPorEmail(email) {
 }
 
 
+
+
+
+export async function getUsersIdNombre() {
+    'use cache'
+
+    cacheTag('users', 'users:id-nombre')
+
+    const users = await prisma.user.findMany({
+        select: {
+            id: true,
+            name: true
+        }
+    })
+    return users
+}

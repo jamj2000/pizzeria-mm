@@ -34,7 +34,6 @@ export default function PaginaLogin({ searchParams }) {
 async function ContenidoLogin({ searchParamsPromise }) {
   await connection()
   const { error, callbackUrl } = await searchParamsPromise
-  globalThis.callbackUrl = callbackUrl
 
   const sesion = await auth()
 
@@ -96,10 +95,10 @@ async function ContenidoLogin({ searchParamsPromise }) {
         <Globe />
       </label>
 
-      <RegisterCredentials className="hidden peer-checked/register:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
-      <LoginForm className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
-      <LoginMagicLink className="hidden peer-checked/magic:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
-      <LoginOauth className="hidden peer-checked/oauth:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <RegisterCredentials callbackUrl={callbackUrl} className="hidden peer-checked/register:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginForm callbackUrl={callbackUrl} className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginMagicLink callbackUrl={callbackUrl} className="hidden peer-checked/magic:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginOauth callbackUrl={callbackUrl} className="hidden peer-checked/oauth:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       {error && <p className='text-red-400'>{errors.get(error)}</p>}
     </div>
   )

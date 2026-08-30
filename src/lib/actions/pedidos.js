@@ -1,11 +1,11 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { revalidatePath, updateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 
 
 
 
-async function insertar(prevState, formData) {
+export async function createPedido(prevState, formData) {
     // const estado = formData.get('estado')
     const fecha_hora = new Date(formData.get('fecha_hora')).toISOString()
     const clienteId = formData.get('clienteId')
@@ -33,11 +33,11 @@ async function insertar(prevState, formData) {
         })
 
         updateTag('pedidos')
-        return { success: 'Pedido registrado correctamente' }
+        return { type: "success", message: 'Pedido registrado correctamente' }
     } catch (error) {
         console.error(error)
         // return { error: 'Error al registrar el pedido' }
-        return { error: error.message.split('\n').pop() }
+        return { type: "error", error: error.message.split('\n').pop() }
     }
 }
 
@@ -45,7 +45,7 @@ async function insertar(prevState, formData) {
 
 
 
-async function modificar(prevState, formData) {
+export async function updatePedido(prevState, formData) {
     const id = Number(formData.get('id'))
     // const estado = formData.get('estado')
     const fecha_hora = new Date(formData.get('fecha_hora')).toISOString()
@@ -79,10 +79,10 @@ async function modificar(prevState, formData) {
         })
 
         updateTag('pedidos')
-        return { success: 'Pedido modificado correctamente' }
+        return { type: "success", message: 'Pedido modificado correctamente' }
     } catch (error) {
         console.error(error)
-        return { error: 'Error al modificar el pedido' }
+        return { type: "error", error: 'Error al modificar el pedido' }
     }
 }
 
@@ -90,7 +90,7 @@ async function modificar(prevState, formData) {
 
 
 
-async function eliminar(prevState, formData) {
+export async function deletePedido(prevState, formData) {
     const id = Number(formData.get('id'))
 
     try {
@@ -99,15 +99,17 @@ async function eliminar(prevState, formData) {
         })
 
         updateTag('pedidos')
-        return { success: 'Pedido eliminado correctamente' }
+        // return { type: "success", message: 'Pedido eliminado correctamente' }
     } catch (error) {
         console.error(error)
-        return { error: 'Error al eliminar el pedido' }
+        return { type: "error", error: 'Error al eliminar el pedido' }
     }
 }
 
 
-async function changeState(pedido) {
+
+
+export async function changeState(pedido) {
 
     // await new Promise(resolve => setTimeout(resolve, 2000));
     if (pedido) {
@@ -116,14 +118,9 @@ async function changeState(pedido) {
             data: { estado: (pedido.estado + 1) % 4 },
         })
 
-        revalidatePath("/dashboard");
+        updateTag('pedidos')
+        updateTag(`pedido:${pedido.id}`)
     }
 }
 
 
-export {
-    insertar,
-    modificar,
-    eliminar,
-    changeState
-}

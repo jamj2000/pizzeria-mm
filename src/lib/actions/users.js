@@ -1,7 +1,7 @@
 'use server'
 import bcrypt from 'bcryptjs'
 import { getUsuarioPorEmail } from '@/lib/data/users'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import stripe from '@/lib/stripe'
 import prisma from '@/lib/prisma'
@@ -34,7 +34,7 @@ async function newUser(prevState, formData) {
             },
         })
 
-        await prisma.user.create({
+        const createdUser = await prisma.user.create({
             data: {
                 name,
                 email,
@@ -48,6 +48,8 @@ async function newUser(prevState, formData) {
             }
         })
 
+        updateTag('users')
+        updateTag(`user-${createdUser.id}`)
         revalidatePath('/dashboard')
         return { success: 'Usuario guardado' }
     } catch (error) {
@@ -108,6 +110,8 @@ async function editUser(prevState, formData) {
             }
         })
 
+        updateTag('users')
+        updateTag(`user-${id}`)
         revalidatePath('/dashboard')
         return { success: 'Usuario modificado' }
 
@@ -115,6 +119,10 @@ async function editUser(prevState, formData) {
         return { error: error.message || 'Error al modificar el usuario' }
     }
 }
+
+
+
+
 
 async function deleteUser(user) {
     try {
@@ -125,6 +133,8 @@ async function deleteUser(user) {
         await prisma.user.delete({
             where: { id },
         })
+        updateTag('users')
+        updateTag(`user-${id}`)
         revalidatePath('/dashboard')
         return { success: 'Usuario eliminado' }
     } catch (error) {
@@ -140,7 +150,8 @@ async function activeUser(user) {
             data: { active: !user.active },
         })
 
-
+        updateTag('users')
+        updateTag(`user-${user.id}`)
         revalidatePath("/dashboard");
     }
 }

@@ -1,16 +1,19 @@
 import Pedidos from "@/components/pedidos/lista";
-import Link from "next/link";
 import { Spinner2 } from "@/components/ui/spinners";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { getPedidos } from "@/lib/data/pedidos";
-import { getRepartidores } from "@/lib/data/repartidores";
-import { getPizzas } from "@/lib/data/pizzas";
-import { getUsuarios } from "@/lib/data/users";
+import { getRepartidoresIdNombre } from "@/lib/data/repartidores";
+import { getPizzasIdNombre } from "@/lib/data/pizzas";
+import { getUsersIdNombre } from "@/lib/data/users";
 
 import { connection } from "next/server";
+import { List } from "@/components/simpleui";
+import { CardPedido, CreatePedido, DeletePedido, UpdatePedido } from "@/components/pedidos";
 
 export const metadata = { title: "Pizzería MM - Pedidos" }
+
+
 
 async function getPedidosForSession() {
     await connection()
@@ -19,43 +22,83 @@ async function getPedidosForSession() {
     return getPedidos(!isAdminSession ? session?.user?.id : undefined)
 }
 
-export default function PaginaPedidos() {
+
+
+
+export default function Page() {
     return (
         <div className='container mx-auto px-4 py-10 flex flex-col'>
             <h1 className="text-3xl font-bold mb-4">PEDIDOS</h1>
 
             <Suspense fallback={"..."}>
-                <Contenido />
+                <Content />
             </Suspense>
         </div>
     )
 }
 
 
-async function Contenido() {
+async function Content() {
     const [
         pedidos,
-        repartidores,
-        pizzas,
-        clientes,
+        repartidoresIdNombre,
+        pizzasIdNombre,
+        clientesIdNombre,
         session
     ] = await Promise.all([
         getPedidosForSession(),
-        getRepartidores(),
-        getPizzas(),
-        getUsuarios(),
+        getRepartidoresIdNombre(),
+        getPizzasIdNombre(),
+        getUsersIdNombre(),
         auth()
     ])
+
+
+    const isAdminSession = session?.user?.role === 'ADMIN'
+
+    const data = pedidos.map(p => ({
+        ...p,
+        repartidoresIdNombre,
+        pizzasIdNombre,
+        clientesIdNombre,
+        isAdminSession
+    }))
+
+
+    // return (
+    //     <List
+    //         prefix="/pedidos"
+    //         card={CardPedido}
+    //         data={data}
+    //         columns={[
+    //             { name: "fecha_hora", label: "Fecha" },
+    //             { name: "cliente", label: "Cliente" },
+    //             { name: "repartidor", label: "Repartidor" },
+    //         ]}
+    //         actions={[
+    //             ...(isAdminSession ? [UpdatePedido, DeletePedido] : [])
+    //         ]}
+    //         sort="fecha_hora"
+    //         direction="asc"
+    //     >
+    //         <div className="flex justify-between">
+    //             <h2 className="text-2xl text-center inline"></h2>
+    //             <CreatePedido />
+    //         </div>
+    //     </List>
+    // )
 
     return (
         <Pedidos
             pedidos={pedidos}
-            repartidores={repartidores}
-            pizzas={pizzas}
-            clientes={clientes}
+            repartidores={repartidoresIdNombre}
+            pizzas={pizzasIdNombre}
+            clientes={clientesIdNombre}
             session={session}
         // isAdminSession={isAdminSession}
         />
     )
+
+
 
 }
