@@ -1,6 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+
+
+
 const store = (set, get) => ({
     cart: [],
     addToCart: (pizza) => set((state) => {

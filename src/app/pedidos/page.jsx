@@ -8,9 +8,12 @@ import { getRepartidores } from "@/lib/data/repartidores";
 import { getPizzas } from "@/lib/data/pizzas";
 import { getUsuarios } from "@/lib/data/users";
 
+import { connection } from "next/server";
+
 export const metadata = { title: "Pizzería MM - Pedidos" }
 
 async function getPedidosForSession() {
+    await connection()
     const session = await auth()
     const isAdminSession = session?.user?.role === 'ADMIN'
     return getPedidos(!isAdminSession ? session?.user?.id : undefined)

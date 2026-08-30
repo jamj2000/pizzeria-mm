@@ -17,6 +17,8 @@ import Estado from "@/components/pedidos/estado";
 import { PedidoCard } from "@/components/pedidos/info";
 import Link from 'next/link'
 
+import { connection } from "next/server";
+
 export const metadata = { title: "Pizzería MM - Dashboard" }
 
 export default function Dashboard() {
@@ -39,6 +41,7 @@ export default function Dashboard() {
 }
 
 async function ContenidoDashboard() {
+    await connection()
     const session = await auth()
     if (!session) redirect('/login')
 

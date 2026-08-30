@@ -6,6 +6,8 @@ import { getRepartidores } from "@/lib/data/repartidores";
 import { List } from "@/components/simpleui";
 import { CreateRepartidor, ViewRepartidor, UpdateRepartidor, DeleteRepartidor, CardRepartidor } from "@/components/repartidores";
 
+import { connection } from "next/server";
+
 export const metadata = { title: "Pizzería MM - Repartidores" }
 
 
@@ -26,6 +28,7 @@ export default function Page() {
 
 
 async function Content() {
+    await connection()
     const session = await auth()
     if (session?.user?.role !== 'ADMIN') redirect('/dashboard')
 

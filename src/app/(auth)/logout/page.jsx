@@ -4,6 +4,8 @@ import { auth } from "@/lib/auth"
 import { Lock } from "lucide-react"
 import { Suspense } from "react"
 
+import { connection } from "next/server"
+
 export default function page() {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
@@ -13,6 +15,7 @@ export default function page() {
 }
 
 async function ContenidoLogout() {
+  await connection()
   const sesion = await auth()
 
   if (sesion) {

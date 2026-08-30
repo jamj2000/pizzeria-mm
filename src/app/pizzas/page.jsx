@@ -1,9 +1,11 @@
 import { Suspense } from "react";
 import { getPizzas } from "@/lib/data/pizzas";
-import { getIngredientes, getIngredientesIdNombre } from "@/lib/data/ingredientes";
+import { getIngredientesIdNombre } from "@/lib/data/ingredientes";
 import { auth } from "@/lib/auth";
 import { List } from "@/components/simpleui";
 import { CardPizza, CreatePizza, DeletePizza, UpdatePizza, ViewPizza } from "@/components/pizzas";
+
+import { connection } from "next/server";
 
 export const metadata = { title: "Pizzería MM - Pizzas" }
 
@@ -29,7 +31,7 @@ export default function Page() {
 
 
 async function Content() {
-
+    await connection()
     const session = await auth()
 
     const isAdminSession = session?.user?.role === 'ADMIN'
@@ -48,7 +50,6 @@ async function Content() {
         ingredientesIdNombre
     }))
 
-    console.log(data)
 
     return (
         <List

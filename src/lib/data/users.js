@@ -16,6 +16,21 @@ export async function getUsuarios() {
 
 
 
+export async function getUsuarioBasicoPorId(id) {
+    if (!id) return null;
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id },
+            select: { id: true, name: true, email: true, image: true, role: true }
+        })
+        return user
+    }
+    catch (error) {
+        console.log(error.message.split('\n').pop())
+        return null
+    }
+}
+
 export async function getUsuarioPorId(id) {
     try {
         const user = await prisma.user.findUnique({

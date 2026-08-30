@@ -1,22 +1,23 @@
 import { BikeIcon, HomeIcon, KeyRoundIcon, LockIcon, MenuIcon, PizzaIcon, ScrollTextIcon, ShoppingCartIcon, UserRoundIcon, XIcon } from 'lucide-react'
 import { logout } from '@/lib/actions/auth';
 import { auth } from '@/lib/auth';
-import MenuLink from '@/components/ui/menu-link';
+// import MenuLink from '@/components/ui/menu-link';
 import Link from 'next/link'
 import CartWidget from '@/components/carrito/widget';
+import { MainMenu, MenuLink } from '../simpleui';
+import { connection } from 'next/server';
 
 
 
 export default async function Header() {
-
+  await connection()
   const session = await auth()
 
 
   return (
     <nav className='z-10 w-full px-4 py-2 flex justify-between items-center bg-white/75 backdrop-blur-xs fixed top-0'> {/* bottom-0 md:bottom-auto md:top-0*/}
 
-      <div className="flex items-center gap-1">
-        {/* Control Menú */}
+      {/* <div className="flex items-center gap-1">
         <input type="checkbox" id="openMenu" className='hidden peer' defaultChecked={true} />
 
         < label htmlFor="openMenu" className='bg-white hidden peer-checked:block p-2 rounded-full hover:outline hover:outline-slate-600' >
@@ -28,14 +29,36 @@ export default async function Header() {
         </label>
 
 
-        {/* Menú */}
+   
         <MenuLink label="Inicio" href="/" icon={<HomeIcon />} />
         <MenuLink label="Pizzas" href="/pizzas" icon={<PizzaIcon className='-scale-x-100' />} />
         <MenuLink label="Pedidos" href="/pedidos" icon={<ScrollTextIcon />} />
         {session?.user.role === 'ADMIN' &&
           <MenuLink label="Repartidores" href="/repartidores" icon={<BikeIcon />} />
         }
-      </div >
+      </div > */}
+
+
+      {/* <MenuLink label="Inicio" href="/">
+        <HomeIcon /> Inicio
+      </MenuLink> */}
+
+      <MainMenu position='left'>
+        <MenuLink label="Pizzas" href="/pizzas">
+          <PizzaIcon className='-scale-x-100' /> Pizzas
+        </MenuLink>
+
+        <MenuLink label="Pedidos" href="/pedidos">
+          <ScrollTextIcon /> Pedidos
+        </MenuLink>
+
+        {session?.user.role === 'ADMIN' &&
+          <MenuLink label="Repartidores" href="/repartidores">
+            <BikeIcon /> Repartidores
+          </MenuLink>
+        }
+
+      </MainMenu>
 
       <div className='flex gap-2 items-center' >
         {/* Sesión */}

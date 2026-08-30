@@ -20,7 +20,8 @@ errors.set('SessionRequired', "Error al iniciar sesión. Verifique que los detal
 errors.set('Default', "No se puede iniciar sesión.");
 
 
-import { Suspense } from 'react';
+import { connection } from 'next/server';
+import { Suspense } from 'react'
 
 export default function PaginaLogin({ searchParams }) {
   return (
@@ -31,6 +32,7 @@ export default function PaginaLogin({ searchParams }) {
 }
 
 async function ContenidoLogin({ searchParamsPromise }) {
+  await connection()
   const { error, callbackUrl } = await searchParamsPromise
   globalThis.callbackUrl = callbackUrl
 
