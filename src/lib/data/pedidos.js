@@ -14,7 +14,7 @@ export async function getPedidos(clienteId) {
             clienteId // dentro de where, valores undefined equivalen a desactivar filtro 
         },
         include: {
-            cliente: true,
+            cliente: { select: { id: true, name: true, image: true } },
             repartidor: true,
             pedidoPizzas: {
                 include: { pizza: true }
@@ -38,7 +38,7 @@ export async function getPedido(id) {
     const pedido = await prisma.pedido.findUnique({
         where: { id: +id },
         include: {
-            cliente: true,
+            cliente: { select: { id: true, name: true, image: true } },
             repartidor: true,
             pedidoPizzas: {
                 include: { pizza: true }

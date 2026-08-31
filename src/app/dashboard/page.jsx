@@ -145,7 +145,7 @@ async function UserPedidos({ session }) {
                                 <Image
                                     width={40}
                                     height={40}
-                                    src={pedido.cliente.image}
+                                    src={pedido.cliente.image || '/images/avatar-80.png'}
                                     alt="avatar"
                                     className="size-8"
                                 />

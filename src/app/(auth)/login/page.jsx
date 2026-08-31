@@ -39,7 +39,7 @@ export default function Page({ searchParams }) {
 
 
 async function Content({ searchParams }) {
-  await connection()
+  await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
   const { error, callbackUrl } = await searchParams
 
   const sesion = await auth()

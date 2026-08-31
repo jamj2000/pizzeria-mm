@@ -8,7 +8,7 @@ import { getPizzasIdNombre } from "@/lib/data/pizzas";
 import { getUsersIdNombre } from "@/lib/data/users";
 
 import { connection } from "next/server";
-import { List } from "@/components/simpleui";
+import { List, Spinner } from "@/components/simpleui";
 import { CardPedido, CreatePedido, DeletePedido, UpdatePedido } from "@/components/pedidos";
 
 export const metadata = { title: "Pizzería MM - Pedidos" }
@@ -30,7 +30,7 @@ export default function Page() {
         <div className='container mx-auto px-4 py-10 flex flex-col'>
             <h1 className="text-3xl font-bold mb-4">PEDIDOS</h1>
 
-            <Suspense fallback={"..."}>
+            <Suspense fallback={<Spinner type={1} />}>
                 <Content />
             </Suspense>
         </div>
@@ -64,40 +64,41 @@ async function Content() {
         isAdminSession
     }))
 
-
-    // return (
-    //     <List
-    //         prefix="/pedidos"
-    //         card={CardPedido}
-    //         data={data}
-    //         columns={[
-    //             { name: "fecha_hora", label: "Fecha" },
-    //             { name: "cliente", label: "Cliente" },
-    //             { name: "repartidor", label: "Repartidor" },
-    //         ]}
-    //         actions={[
-    //             ...(isAdminSession ? [UpdatePedido, DeletePedido] : [])
-    //         ]}
-    //         sort="fecha_hora"
-    //         direction="asc"
-    //     >
-    //         <div className="flex justify-between">
-    //             <h2 className="text-2xl text-center inline"></h2>
-    //             <CreatePedido />
-    //         </div>
-    //     </List>
-    // )
+    console.log(data[0])
 
     return (
-        <Pedidos
-            pedidos={pedidos}
-            repartidores={repartidoresIdNombre}
-            pizzas={pizzasIdNombre}
-            clientes={clientesIdNombre}
-            session={session}
-        // isAdminSession={isAdminSession}
-        />
+        <List
+            prefix="/pedidos"
+            card={CardPedido}
+            data={data}
+            columns={[
+                { name: "fecha_hora", label: "Fecha" },
+                { name: "cliente", label: "Cliente" },
+                { name: "repartidor", label: "Repartidor" },
+            ]}
+            actions={[
+                ...(isAdminSession ? [UpdatePedido, DeletePedido] : [])
+            ]}
+            sort="fecha_hora"
+            direction="asc"
+        >
+            <div className="flex justify-between">
+                <h2 className="text-2xl text-center inline"></h2>
+                <CreatePedido />
+            </div>
+        </List>
     )
+
+    // return (
+    //     <Pedidos
+    //         pedidos={pedidos}
+    //         repartidores={repartidoresIdNombre}
+    //         pizzas={pizzasIdNombre}
+    //         clientes={clientesIdNombre}
+    //         session={session}
+    //     // isAdminSession={isAdminSession}
+    //     />
+    // )
 
 
 

@@ -71,10 +71,10 @@ export async function updatePedido(prevState, formData) {
                 fecha_hora,
                 clienteId,
                 repartidorId,
-                pedidoPizzas: {
-                    deleteMany: {},
-                    create: pizzas,
-                }
+                // pedidoPizzas: {
+                //     deleteMany: {},
+                //     create: pizzas,
+                // }
             }
         })
 

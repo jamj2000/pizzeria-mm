@@ -20,18 +20,39 @@ export const GenerarFactura = ({ pedido }) =>
 
 
 
+const formatDateTime = (dateValue) => {
+    const date = dateValue ? new Date(dateValue) : new Date();
+    if (isNaN(date.getTime())) return "";
+    const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 16);
+};
+
+
+
 const fields = (data) => [
+    {
+        name: "pizzas",
+        component: "InputHidden",
+        value: JSON.stringify(data?.pedidoPizzas?.map(pp => ({ id: pp.pizzaId, cantidad: pp.cantidad }))) ?? []
+    },
     {
         name: "fecha_hora",
         label: "Fecha y hora",
         component: "InputDate",
-        type: "datetime-local"
+        type: "datetime-local",
+        value: formatDateTime(data?.fecha_hora)
+    },
+    {
+        name: "clienteId",
+        label: "Cliente",
+        component: "InputSelect",
+        options: data?.clientesIdNombre?.map(({ id, name }) => ([name, id, data?.clienteId == id])) ?? []
     },
     {
         name: "repartidorId",
         label: "Repartidor",
         component: "InputSelect",
-        options: data?.repartidoresIdNombre?.map(({ id, nombre }) => ([nombre, id, data?.repartidores?.find(r => r.id == id)])) ?? []
+        options: data?.repartidoresIdNombre?.map(({ id, nombre }) => ([nombre, id, data?.repartidorId == id])) ?? []
     }
 ]
 
