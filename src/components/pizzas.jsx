@@ -6,6 +6,7 @@ import { defaultImage } from "@/lib/constants";
 import { useCart } from "@/lib/store/cart";
 import { PlusIcon, FilePlusCornerIcon, FilePenLineIcon, TrashIcon, ArrowUpRightIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 
@@ -163,13 +164,31 @@ export const ViewPizza = ({ data = {} }) => (
 )
 
 
-
-
-export const CardPizza = ({ prefix, data, actions }) => (
-
-    <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20">
+export const CardPublicPizza = ({ data }) => (
+    <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20" >
 
         <AddToCart pizza={data} className="self-end" />
+
+        <Link prefetch href={`/pizzas/${data.id}`}>
+            <div className="flex gap-2 items-center">
+
+                <Image src={data.foto || defaultImage} alt={data.nombre || 'pizza'} width={80} height={80} className="object-cover rounded-md shadow-sm" />
+
+                <div className="flex flex-col gap-2 p-2">
+                    <div className="font-semibold ">{data.nombre}</div>
+
+                    <div className="text-sm text-gray-500 dark:text-gray-300">{data.precio}</div>
+                </div>
+            </div>
+        </Link>
+    </div >
+)
+
+
+
+export const CardAdminPizza = ({ prefix, data, actions }) => (
+
+    <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20">
 
         <Prefetch href={prefix && `${prefix}/${data.id}`}>
             <div className="flex gap-2 items-center">
@@ -200,7 +219,7 @@ export const CardPizza = ({ prefix, data, actions }) => (
 
 
 
-export const Card2Pizza = ({ prefix, data, actions }) => (
+export const Card2AdminPizza = ({ prefix, data, actions }) => (
 
     <div className="p-4 xl:p-2 flex flex-col xl:items-center xl:flex-row gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 not-xl:rounded-md not-xl:shadow-md not-xl:shadow-current/20 xl:bg-inherit xl:dark:bg-inherit">
 

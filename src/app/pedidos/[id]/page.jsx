@@ -6,7 +6,6 @@ import { BackLink } from "@/components/simpleui";
 import { ArrowLeftIcon } from "lucide-react";
 
 
-
 import { GenerarFactura } from "@/components/pedidos";
 
 

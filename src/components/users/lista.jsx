@@ -2,7 +2,6 @@
 
 import Modal from '@/components/ui/modal';
 import { deleteUser, editUser, newUser } from "@/lib/actions/users";
-import { use } from "react";
 import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/icons";
 import Form from './form';
 import { Label, labelEliminar, labelInsertar, labelModificar } from '../ui/labels';
@@ -115,7 +114,7 @@ export default function List({ session, users }) {
 
     return (
         <div>
-            <h1 className="text-xl font-bold mt-15">Lista de usuarios</h1>
+            <h2 className="text-xl font-bold my-6">Lista de usuarios</h2>
 
             <div>
                 {isAdminSession &&

@@ -1,14 +1,10 @@
 import { Suspense } from "react";
 import { getPizzas } from "@/lib/data/pizzas";
-import { getIngredientesIdNombre } from "@/lib/data/ingredientes";
-import { auth } from "@/lib/auth";
 import { List } from "@/components/simpleui";
-import { CardPizza, CreatePizza, DeletePizza, UpdatePizza, ViewPizza } from "@/components/pizzas";
+import { CardPublicPizza } from "@/components/pizzas";
 
-import { connection } from "next/server";
 
 export const metadata = { title: "Pizzería MM - Pizzas" }
-
 
 
 export default function Page() {
@@ -31,48 +27,23 @@ export default function Page() {
 
 
 async function Content() {
-    await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
-    const session = await auth()
-
-    const isAdminSession = session?.user?.role === 'ADMIN'
-
-    const [
-        pizzas,
-        ingredientesIdNombre,
-    ] = await Promise.all([
-        getPizzas(),
-        getIngredientesIdNombre(),
-    ])
-
-
-    const data = pizzas.map(p => ({
-        ...p,
-        ingredientesIdNombre
-    }))
-
+    const pizzas = await getPizzas()
 
     return (
         <List
             prefix="/pizzas"
-            card={CardPizza}
-            data={data}
+            card={CardPublicPizza}
+            data={pizzas}
             columns={[
                 { name: "nombre", label: "Nombre" },
                 { name: "precio", label: "Precio" },
             ]}
-            actions={[
-                ...(isAdminSession ? [UpdatePizza, DeletePizza] : [])
-            ]}
             sort="nombre"
-        >
-            <div className="flex justify-between">
-                <h2 className="text-2xl text-center inline"></h2>
-                <CreatePizza />
-            </div>
-        </List>
-    )
+        />
 
+    )
 }
+
 
 
 

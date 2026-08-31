@@ -18,33 +18,11 @@ export default async function Header() {
   return (
     <nav className='z-10 w-full px-4 py-2 flex justify-between items-center bg-white/75 backdrop-blur-xs fixed top-0'> {/* bottom-0 md:bottom-auto md:top-0*/}
 
-      {/* <div className="flex items-center gap-1">
-        <input type="checkbox" id="openMenu" className='hidden peer' defaultChecked={true} />
-
-        < label htmlFor="openMenu" className='bg-white hidden peer-checked:block p-2 rounded-full hover:outline hover:outline-slate-600' >
-          <XIcon />
-        </label >
-
-        <label htmlFor="openMenu" className='bg-white hidden peer-not-checked:block p-2 rounded-full hover:outline hover:outline-slate-600'>
-          <MenuIcon />
-        </label>
-
-
-   
-        <MenuLink label="Inicio" href="/" icon={<HomeIcon />} />
-        <MenuLink label="Pizzas" href="/pizzas" icon={<PizzaIcon className='-scale-x-100' />} />
-        <MenuLink label="Pedidos" href="/pedidos" icon={<ScrollTextIcon />} />
-        {session?.user.role === 'ADMIN' &&
-          <MenuLink label="Repartidores" href="/repartidores" icon={<BikeIcon />} />
-        }
-      </div > */}
-
-
-      {/* <MenuLink label="Inicio" href="/">
-        <HomeIcon /> Inicio
-      </MenuLink> */}
 
       <MainMenu position='left'>
+
+        <Link href="/" className='my-4 mr-4 flex gap-2 items-center'><HomeIcon /></Link>
+
         <MenuLink label="Pizzas" href="/pizzas">
           <PizzaIcon className='-scale-x-100' /> Pizzas
         </MenuLink>
