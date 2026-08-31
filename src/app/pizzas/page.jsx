@@ -31,7 +31,7 @@ export default function Page() {
 
 
 async function Content() {
-    await connection()
+    await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
     const session = await auth()
 
     const isAdminSession = session?.user?.role === 'ADMIN'

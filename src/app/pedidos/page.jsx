@@ -16,7 +16,7 @@ export const metadata = { title: "Pizzería MM - Pedidos" }
 
 
 async function getPedidosForSession() {
-    await connection()
+    await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
     const session = await auth()
     const isAdminSession = session?.user?.role === 'ADMIN'
     return getPedidos(!isAdminSession ? session?.user?.id : undefined)

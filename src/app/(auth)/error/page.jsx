@@ -8,21 +8,29 @@ errors.set('AccessDenied', "Acceso denegado.");
 errors.set('Verification', "El token ha caducado o ya ha sido utilizado. Relacionado con el proveedor de correo electrónico.");
 errors.set('Default', "Ocurrió un error inesperado.");
 
-async function ErrorContent({ searchParamsPromise }) {
-  const { error } = await searchParamsPromise;
+
+
+
+export default function Page({ searchParams }) {
+  return (
+    <Suspense fallback={<h1>Error</h1>}>
+      <ErrorContent searchParams={searchParams} />
+    </Suspense>
+  )
+}
+
+
+
+
+
+
+async function ErrorContent({ searchParams }) {
+  const { error } = await searchParams;
 
   return (
     <>
       <h1>Error</h1>
       {error && <h3>{errors.get(error)}</h3>}
     </>
-  );
-}
-
-export default function page({ searchParams }) {
-  return (
-    <Suspense fallback={<h1>Error</h1>}>
-      <ErrorContent searchParamsPromise={searchParams} />
-    </Suspense>
   );
 }

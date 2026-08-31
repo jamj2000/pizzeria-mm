@@ -6,11 +6,12 @@ import Link from 'next/link'
 import CartWidget from '@/components/carrito/widget';
 import { MainMenu, MenuLink } from '../simpleui';
 import { connection } from 'next/server';
+import Image from 'next/image';
 
 
 
 export default async function Header() {
-  await connection()
+  await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
   const session = await auth()
 
 
@@ -66,7 +67,16 @@ export default async function Header() {
           <Link
             href="/dashboard"
             className="w-full rounded-full hover:outline hover:outline-slate-600 cursor-pointer" >
-            {session.user.image ? <img src={session.user.image} className='size-10 rounded-full' /> : <UserRoundIcon className='size-10 p-2' />}
+            {session.user.image
+              ?
+              <Image
+                width={60}
+                height={60}
+                alt="imagen de usuario"
+                src={session.user.image}
+                className='size-10 rounded-full'
+              />
+              : <UserRoundIcon className='size-10 p-2' />}
           </Link >
         }
 

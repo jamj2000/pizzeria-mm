@@ -2,35 +2,41 @@ import { logout } from "@/lib/actions/auth"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 import { Lock } from "lucide-react"
-import { Suspense } from "react"
 
+import { Suspense } from "react"
 import { connection } from "next/server"
 
-export default function page() {
+
+
+export default function Page() {
   return (
     <Suspense fallback={<div>Cargando...</div>}>
-      <ContenidoLogout />
+      <Content />
     </Suspense>
   )
 }
 
-async function ContenidoLogout() {
-  await connection()
+
+
+
+
+
+async function Content() {
+  await connection()    // Necesario porque NextAuth v5 hace uso de crypto.getRandomValues() durante el prerendering
   const sesion = await auth()
 
-  if (sesion) {
-    return (
-      <>
-        <h1>Cerrar sesión</h1>
-        <form>
-          <button formAction={logout} className="logout">
-            <Lock /> Cerrar sesión
-          </button>
-        </form>
-      </>
-    )
-  }
-  else {
+  if (!sesion) {
     redirect('/login')
   }
+
+  return (
+    <>
+      <h1>Cerrar sesión</h1>
+      <form>
+        <button formAction={logout} className="logout">
+          <Lock /> Cerrar sesión
+        </button>
+      </form>
+    </>
+  )
 }

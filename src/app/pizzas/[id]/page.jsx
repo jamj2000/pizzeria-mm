@@ -5,6 +5,7 @@ import { BackLink } from "@/components/simpleui/client";
 import { ArrowLeftIcon } from "lucide-react";
 import { AddToCart } from "@/components/pizzas";
 import { defaultImage } from "@/lib/constants";
+import Image from "next/image";
 
 
 
@@ -47,7 +48,9 @@ async function Content({ params }) {
             <div className='relative w-full'>
                 <AddToCart pizza={pizza} className="absolute top-4 right-4" />
 
-                <img
+                <Image
+                    width={600}
+                    height={600}
                     alt='foto'
                     src={pizza.foto || defaultImage}
                     className="h-[200px] w-full lg:h-[600px] object-cover"

@@ -153,9 +153,7 @@ export const CardPedido = ({ prefix, data, actions }) => (
     <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20">
 
         {actions &&
-            <div className="flex gap-1 self-end"
-                onClick={e => e.stopPropagation()}
-            >
+            <div className="flex gap-1 self-end" onClick={e => e.stopPropagation()}             >
                 {actions.map((Action, index) =>
                     <Action key={index} data={data} />
                 )}
@@ -187,32 +185,32 @@ export const CardPedido = ({ prefix, data, actions }) => (
 
 
 
-const Item = ({ pedido, children }) =>
-    <div key={pedido.id} className="max-w-96 p-4 mb-4 bg-indigo-50 rounded-lg border border-indigo-100   ">
-        <div className='flex justify-end items-center gap-1'>
-            {children}
-        </div>
+// const Item = ({ pedido, children }) =>
+//     <div key={pedido.id} className="max-w-96 p-4 mb-4 bg-indigo-50 rounded-lg border border-indigo-100   ">
+//         <div className='flex justify-end items-center gap-1'>
+//             {children}
+//         </div>
 
-        <Estado pedido={pedido} editable={isAdminSession} />
+//         <Estado pedido={pedido} editable={isAdminSession} />
 
-        <Modal trigger={<PedidoCard pedido={pedido} />}>
-            <PedidoInfo pedido={pedido} />
-        </Modal>
+//         <Modal trigger={<PedidoCard pedido={pedido} />}>
+//             <PedidoInfo pedido={pedido} />
+//         </Modal>
 
-        {isAdminSession &&
-            <>
-                <details>
-                    <summary className="cursor-pointer hover:bg-slate-300 p-2">Cliente: {pedido.cliente?.name}</summary>
-                    <p>Dirección: {pedido.cliente?.address}</p>
-                    <p>Teléfono: {pedido.cliente?.phone}</p>
-                </details>
-                <details>
-                    <summary className="cursor-pointer hover:bg-slate-300 p-2">Repartidor: {pedido.repartidor?.nombre}</summary>
-                    <p>Teléfono: {pedido.repartidor?.telefono}</p>
-                </details>
-            </>
-        }
-    </div>
+//         {isAdminSession &&
+//             <>
+//                 <details>
+//                     <summary className="cursor-pointer hover:bg-slate-300 p-2">Cliente: {pedido.cliente?.name}</summary>
+//                     <p>Dirección: {pedido.cliente?.address}</p>
+//                     <p>Teléfono: {pedido.cliente?.phone}</p>
+//                 </details>
+//                 <details>
+//                     <summary className="cursor-pointer hover:bg-slate-300 p-2">Repartidor: {pedido.repartidor?.nombre}</summary>
+//                     <p>Teléfono: {pedido.repartidor?.telefono}</p>
+//                 </details>
+//             </>
+//         }
+//     </div>
 
 
 export const PedidoCard = ({ pedido }) =>

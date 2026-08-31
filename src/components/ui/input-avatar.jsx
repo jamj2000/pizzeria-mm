@@ -1,5 +1,6 @@
 'use client'
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 
@@ -21,7 +22,9 @@ function InputAvatar({ name = 'image', user }) {
                 className="cursor-pointer flex items-center justify-end p-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 transition-colors"
             >
                 <div className="flex items-center gap-3">
-                    <img
+                    <Image
+                        width={60}
+                        height={60}
                         src={selectedAvatar}
                         alt="Avatar seleccionado"
                         className="w-12 h-12 rounded-full object-cover"
@@ -46,7 +49,9 @@ function InputAvatar({ name = 'image', user }) {
                                 className={`cursor-pointer p-1 rounded-full hover:bg-indigo-50 transition-colors ${selectedAvatar === avatar ? 'ring-2 ring-indigo-500' : ''
                                     }`}
                             >
-                                <img
+                                <Image
+                                    width={60}
+                                    height={60}
                                     src={avatar}
                                     alt={`Avatar ${index}`}
                                     className="w-10 h-10 rounded-full object-cover"
@@ -57,7 +62,9 @@ function InputAvatar({ name = 'image', user }) {
                 </div>
             )}
 
-            <img
+            <Image
+                width={300}
+                height={300}
                 src={selectedAvatar}
                 alt="Avatar seleccionado"
                 className="self-center h-60 object-contain"

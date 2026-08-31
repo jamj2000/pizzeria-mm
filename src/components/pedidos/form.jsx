@@ -23,7 +23,7 @@ export default function Form({ action, user, pedido, pizzas, repartidores, disab
         if (state.error) {
             toast.error(state.error)
         }
-    }, [state])
+    }, [state, formId])
 
 
     const [fechaActual] = useState(() => {

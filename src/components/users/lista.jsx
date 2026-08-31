@@ -7,14 +7,16 @@ import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/ic
 import Form from './form';
 import { Label, labelEliminar, labelInsertar, labelModificar } from '../ui/labels';
 import Estado from './estado';
+import Image from 'next/image';
 
 
 
 
 
-export default function List({ session, promesaUsuarios }) {
-    const users = use(promesaUsuarios)
+export default function List({ session, users }) {
+
     const isAdminSession = session?.user?.role === 'ADMIN'
+
 
     const Insertar = () =>
         <Modal trigger={<IconoInsertar />}>
@@ -51,7 +53,11 @@ export default function List({ session, promesaUsuarios }) {
     const Mostrar = ({ user }) =>
         <Modal trigger={
             <div className="cursor-pointer flex gap-2 items-center">
-                <img src={user?.image || '/images/avatar-80.png'} alt="Imagen de usuario"
+                <Image
+                    width={40}
+                    height={40}
+                    src={user?.image || '/images/avatar-80.png'}
+                    alt="Imagen de usuario"
                     className={`size-8 ${!user.active && 'grayscale opacity-30'}`}
                 />
                 {user.name}
@@ -90,7 +96,11 @@ export default function List({ session, promesaUsuarios }) {
         <div className="absolute left-10 top-4 z-50 mt-2 hidden group-hover:block bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-2xl p-4 min-w-[320px]">
 
             <div className="grid grid-cols-[60px_auto] items-center  gap-4 border border-slate-300 rounded-md p-2">
-                <img src={user.image} alt="avatar"
+                <Image
+                    width={100}
+                    height={100}
+                    src={user.image || '/images/avatar-80.png'}
+                    alt="avatar"
                     className={`size-16 ${!user.active && 'grayscale opacity-30'}`} />
                 <div>
                     <p>{user.name}</p>
@@ -105,24 +115,28 @@ export default function List({ session, promesaUsuarios }) {
 
     return (
         <div>
-            {isAdminSession &&
-                <div className='flex justify-end items-center gap-4 pb-4'>
-                    <Insertar />
-                </div>
-            }
+            <h1 className="text-xl font-bold mt-15">Lista de usuarios</h1>
 
-            {users
-                .filter(user => user.id !== session?.user?.id)
-                .sort((a, b) => a.name?.localeCompare(b.name))
-                .map(user =>
-                    <Item key={user.id} user={user}>
-                        <Estado user={user} editable={isAdminSession} />
-                        <Modificar user={user} />
-                        <Eliminar user={user} />
-                    </Item>
-                )
-            }
-        </div >
+            <div>
+                {isAdminSession &&
+                    <div className='flex justify-end items-center gap-4 pb-4'>
+                        <Insertar />
+                    </div>
+                }
+
+                {users
+                    .filter(user => user.id !== session?.user?.id)
+                    .sort((a, b) => a.name?.localeCompare(b.name))
+                    .map(user =>
+                        <Item key={user.id} user={user}>
+                            <Estado user={user} editable={isAdminSession} />
+                            <Modificar user={user} />
+                            <Eliminar user={user} />
+                        </Item>
+                    )
+                }
+            </div >
+        </div>
 
     )
 }

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { labelDefault } from "../ui/labels";
 import CheckBox from "../ui/check-box";
 import InputAvatar from "../ui/input-avatar";
+import Image from "next/image";
 
 
 export default function Form({ action, isAdminSession, user, disabled = false, labelSubmit = labelDefault }) {
@@ -22,7 +23,7 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
             document.getElementById(formId)?.closest('dialog')?.close()
         }
 
-    }, [state])
+    }, [state, formId])
 
 
     return (
@@ -33,7 +34,13 @@ export default function Form({ action, isAdminSession, user, disabled = false, l
                 <div className="flex flex-col gap-2">
 
                     {disabled
-                        ? <img src={user?.image || '/images/avatar-80.png'} alt="Imagen de usuario" className='h-[200px] w-full lg:h-full object-contain' />
+                        ? <Image
+                            width={200}
+                            height={200}
+                            src={user?.image || '/images/avatar-80.png'}
+                            alt="Imagen de usuario"
+                            className='h-[200px] w-full lg:h-full object-contain'
+                        />
                         : < InputAvatar name='image' user={user} />
                     }
 

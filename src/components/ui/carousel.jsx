@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const images = [
@@ -27,7 +28,9 @@ export default function AutoCarousel() {
     return (
         <div className="relative w-full h-128 overflow-hidden rounded-xl">
             {images.map((src, i) => (
-                <img
+                <Image
+                    width={600}
+                    height={600}
                     key={i}
                     src={src}
                     alt={`Slide ${i + 1}`}

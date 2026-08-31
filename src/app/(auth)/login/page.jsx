@@ -6,6 +6,12 @@ import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation';
 import { CirclePlus, Play, Globe, Key, Mail } from 'lucide-react'
 
+
+import { connection } from 'next/server';
+import { Suspense } from 'react'
+
+
+
 // https://next-auth.js.org/configuration/pages#sign-in-page
 const errors = new Map();
 errors.set('OAuthSignin', "Error al construir una URL de autorización.");
@@ -20,20 +26,21 @@ errors.set('SessionRequired', "Error al iniciar sesión. Verifique que los detal
 errors.set('Default', "No se puede iniciar sesión.");
 
 
-import { connection } from 'next/server';
-import { Suspense } from 'react'
 
-export default function PaginaLogin({ searchParams }) {
+
+export default function Page({ searchParams }) {
   return (
     <Suspense fallback={<div className="mt-8 mx-auto max-w-[375px] text-center">Cargando...</div>}>
-      <ContenidoLogin searchParamsPromise={searchParams} />
+      <Content searchParams={searchParams} />
     </Suspense>
   )
 }
 
-async function ContenidoLogin({ searchParamsPromise }) {
+
+
+async function Content({ searchParams }) {
   await connection()
-  const { error, callbackUrl } = await searchParamsPromise
+  const { error, callbackUrl } = await searchParams
 
   const sesion = await auth()
 
