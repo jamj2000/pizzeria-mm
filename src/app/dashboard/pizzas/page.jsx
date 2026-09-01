@@ -67,7 +67,7 @@ async function Content() {
         >
             <div className="flex justify-between">
                 <h2 className="text-2xl text-center inline"></h2>
-                <CreatePizza data={data} />
+                <CreatePizza data={{ ingredientesIdNombre }} />
             </div>
         </List>
     )

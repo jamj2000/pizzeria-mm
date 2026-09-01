@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import BackButton from "@/components/ui/back-button";
 
 import { auth } from "@/lib/auth";
 import { getRepartidor } from "@/lib/data/repartidores";

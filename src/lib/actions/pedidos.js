@@ -11,12 +11,12 @@ export async function createPedido(prevState, formData) {
     const clienteId = formData.get('clienteId')
     const repartidorId = Number(formData.get('repartidorId')) || null
 
-    const pizzas = formData.getAll('pizzas')
-        .map(pizza => {
-            const { id, cantidad } = JSON.parse(pizza);
-            return { pizzaId: Number(id), cantidad: Number(cantidad) }
-        })
-        .filter(pizza => pizza.cantidad > 0)
+    // const pizzas = formData.getAll('pizzas')
+    //     .map(pizza => {
+    //         const { id, cantidad } = JSON.parse(pizza);
+    //         return { pizzaId: Number(id), cantidad: Number(cantidad) }
+    //     })
+    //     .filter(pizza => pizza.cantidad > 0)
 
 
 
@@ -28,7 +28,7 @@ export async function createPedido(prevState, formData) {
                 fecha_hora,
                 clienteId,
                 repartidorId,
-                pedidoPizzas: { create: pizzas }
+                // pedidoPizzas: { create: pizzas }
             }
         })
 
