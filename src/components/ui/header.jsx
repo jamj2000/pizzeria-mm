@@ -1,7 +1,6 @@
 import { BikeIcon, HomeIcon, KeyRoundIcon, LockIcon, MenuIcon, PizzaIcon, ScrollTextIcon, ShoppingCartIcon, UserRoundIcon, XIcon } from 'lucide-react'
 import { logout } from '@/lib/actions/auth';
 import { auth } from '@/lib/auth';
-// import MenuLink from '@/components/ui/menu-link';
 import Link from 'next/link'
 import CartWidget from '@/components/carrito/widget';
 import { MainMenu, MenuLink } from '../simpleui';
@@ -21,7 +20,7 @@ export default async function Header() {
 
       <MainMenu position='left'>
 
-        <Link href="/" className='my-4 mr-4 flex gap-2 items-center'><HomeIcon /></Link>
+        <Link href="/" className='my-2 mr-4 flex gap-2 items-center'><HomeIcon /></Link>
 
         <MenuLink label="Pizzas" href="/pizzas">
           <PizzaIcon className='-scale-x-100' /> Pizzas

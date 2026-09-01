@@ -29,6 +29,7 @@ export default function AutoCarousel() {
         <div className="relative w-full h-128 overflow-hidden rounded-xl">
             {images.map((src, i) => (
                 <Image
+                    loading="eager"
                     width={600}
                     height={600}
                     key={i}

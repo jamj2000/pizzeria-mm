@@ -27,7 +27,7 @@ export default function Page() {
                 </form>
             </div>
 
-            <Suspense fallback={"..."}>
+            <Suspense fallback={<SkeletonUserInfo />}>
                 <Content />
             </Suspense>
 
@@ -63,12 +63,12 @@ async function UserInfo({ session }) {
     return (
         <div className="grid md:grid-cols-[160px_auto] gap-2">
             <Image
-                width={200}
-                height={200}
+                width={150}
+                height={150}
                 src={usuario?.image || '/images/avatar-80.png'}
                 alt="Imagen de usuario"
                 className="size-36"
-                priority
+                loading='eager'
             />
 
             <div className="flex flex-col gap-1">
@@ -82,6 +82,26 @@ async function UserInfo({ session }) {
                 <p>{usuario.address}</p>
                 <p>{usuario.phone}</p>
                 <p>{usuario.role}</p>
+            </div>
+        </div>
+    )
+}
+
+
+
+const SkeletonUserInfo = () => {
+    return (
+        <div className="grid md:grid-cols-[160px_auto] gap-2">
+            <div className="size-36 bg-slate-200 animate-pulse rounded-md" />
+            <div className="flex flex-col gap-1">
+                <div className="flex gap-2 items-center">
+                    <p className="font-bold w-48 bg-slate-200 animate-pulse rounded-md h-5" />
+                    <div className="w-6 h-6 bg-slate-200 animate-pulse rounded-md" />
+                </div>
+                <p className="w-64 bg-slate-200 animate-pulse rounded-md h-5" />
+                <p className="w-64 bg-slate-200 animate-pulse rounded-md h-5" />
+                <p className="w-64 bg-slate-200 animate-pulse rounded-md h-5" />
+                <p className="w-64 bg-slate-200 animate-pulse rounded-md h-5" />
             </div>
         </div>
     )
