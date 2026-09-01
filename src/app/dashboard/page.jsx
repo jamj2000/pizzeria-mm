@@ -31,17 +31,22 @@ export default function Page() {
                 <Content />
             </Suspense>
 
-            <Link prefetch href="/dashboard/pedidos">
-                <h1 className="text-xl font-bold my-5">Gestionar pedidos</h1>
-            </Link>
-
             <Link prefetch href="/dashboard/usuarios">
                 <h1 className="text-xl font-bold my-5">Gestionar usuarios</h1>
+            </Link>
+
+            <Link prefetch href="/dashboard/pedidos">
+                <h1 className="text-xl font-bold my-5">Gestionar pedidos</h1>
             </Link>
 
             <Link prefetch href="/dashboard/pizzas">
                 <h1 className="text-xl font-bold my-5">Gestionar pizzas</h1>
             </Link>
+
+            <Link prefetch href="/dashboard/repartidores">
+                <h1 className="text-xl font-bold my-5">Gestionar repartidores</h1>
+            </Link>
+
         </div>
     )
 }
