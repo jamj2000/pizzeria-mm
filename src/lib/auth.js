@@ -20,34 +20,24 @@ export const options = {
     },
     callbacks: {
         async session({ session, token }) {
-            // console.log(session, user);
-            session.user.id = token?.sub;     // Para incluir ID de usuario
-            session.user.role = token?.role
+            session.user.id = token?.sub;
 
-            // Obtener la información actualizada del usuario en cada petición
-            // const updatedUser = await getUsuarioBasicoPorId(session.user.id)
+            // Obtener la información actualizada del usuario desde la BD en cada petición
+            const updatedUser = await getUsuarioBasicoPorId(session.user.id)
 
-            // if (updatedUser) {
-            //     session.user.name = updatedUser.name; // Actualizar el nombre en la sesión
-            //     session.user.email = updatedUser.email; // Actualizar el email en la sesión
-            //     session.user.image = updatedUser.image; // Actualizar la imagen en la sesión
-            // }
-
-            session.user.name = token?.name
-            session.user.email = token?.email
-            session.user.image = token?.image
-
+            if (updatedUser) {
+                session.user.name = updatedUser.name;
+                session.user.email = updatedUser.email;
+                session.user.image = updatedUser.image;
+                session.user.role = updatedUser.role;
+            }
 
             return session
         },
-        async jwt({ token }) {
-            if (!token.sub) return token;
-
-            const user = await getUsuarioBasicoPorId(token.sub)
-            if (!user) return token;
-
-            token.role = user?.role
-            token.image = user?.image
+        async jwt({ token, user }) {
+            if (user) {
+                token.role = user.role
+            }
             return token
         }
     },
