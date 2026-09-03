@@ -40,6 +40,7 @@ export const config = {
          * - api (API routes)
          * - register, login, logout, error, verify-request
          * - pizzas
+         * - repartidores
          * - images (into /public)
          * - pwa (into /public) 
          * - _next/static (static files)

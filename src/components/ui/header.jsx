@@ -30,11 +30,9 @@ export default async function Header() {
           <ScrollTextIcon /> Pedidos
         </MenuLink>
 
-        {session?.user.role === 'ADMIN' &&
-          <MenuLink label="Repartidores" href="/repartidores">
-            <BikeIcon /> Repartidores
-          </MenuLink>
-        }
+        <MenuLink label="Repartidores" href="/repartidores">
+          <BikeIcon /> Repartidores
+        </MenuLink>
 
       </MainMenu>
 

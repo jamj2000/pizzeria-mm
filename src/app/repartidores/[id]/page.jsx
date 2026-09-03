@@ -49,10 +49,10 @@ async function Content({ params }) {
             <Image
                 src={repartidor.foto || "/images/avatar-80.png"}
                 alt="foto"
-                width={200}
-                height={200}
+                width={400}
+                height={400}
             />
-            <div className="text-2xl">  {repartidor.nombre}</div>
+            <div className="text-4xl">  {repartidor.nombre}</div>
             {/* <div>Teléfono: {repartidor.telefono}</div> */}
         </div>
     );
