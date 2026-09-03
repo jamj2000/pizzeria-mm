@@ -3,14 +3,18 @@
 import { Form, Button, Modal, Prefetch } from "@/components/simpleui";
 import { createRepartidor, deleteRepartidor, updateRepartidor } from "@/lib/actions/repartidores";
 import { FilePlusCornerIcon, FilePenLineIcon, TrashIcon, ArrowUpRightIcon } from "lucide-react";
+import Image from "next/image";
 
 
 
 const fields = (data) => [
     {
-        name: "id",
-        component: "InputHidden",
-        value: data?.id,
+        name: "foto",
+        label: "Foto",
+        component: "InputImage",
+        width: 240,
+        height: 240,
+        className: "self-end"
     },
     {
         name: "nombre",
@@ -135,14 +139,44 @@ export const ViewRepartidor = ({ data = {} }) => (
 
 
 
-export const CardRepartidor = ({ prefix, data, actions }) => (
+export const CardPublicRepartidor = ({ prefix, data, actions }) => (
     <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20">
 
         <Prefetch href={prefix && `${prefix}/${data.id}`}>
-            <div className="flex flex-col gap-2 p-2">
-                <div className="font-semibold ">{data.nombre}</div>
+            <div className="flex flex-col gap-2 p-2 items-center">
 
-                <div className="text-sm text-gray-500 dark:text-gray-300">{data.telefono}</div>
+                <Image
+                    src={data.foto || "/images/avatar-80.png"}
+                    alt={data.nombre}
+                    width={80}
+                    height={80}
+                    className="rounded-full"
+                />
+                <div className="font-semibold text-2xl">{data.nombre}</div>
+
+                {/* <div className="text-sm text-gray-500 dark:text-gray-300">{data.telefono}</div> */}
+            </div>
+        </Prefetch >
+
+    </div >
+)
+
+
+export const CardAdminRepartidor = ({ prefix, data, actions }) => (
+    <div className="p-4 flex flex-col gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-600 rounded-md shadow-md shadow-current/20">
+
+        <Prefetch href={prefix && `${prefix}/${data.id}`}>
+            <div className="flex flex-col gap-2 p-2 items-center">
+                <Image
+                    src={data.foto || "/images/avatar-80.png"}
+                    alt={data.nombre}
+                    width={80}
+                    height={80}
+                    className="rounded-full"
+                />
+                <div className="font-semibold text-2xl">{data.nombre}</div>
+
+                <div className="text-2xl text-gray-500 dark:text-gray-300">{data.telefono}</div>
             </div>
         </Prefetch >
 

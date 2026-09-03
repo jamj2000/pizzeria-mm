@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import { BackLink } from "@/components/simpleui/client";
 import { ArrowLeftIcon } from "lucide-react";
+import Image from "next/image";
 
 
 
@@ -45,8 +46,14 @@ async function Content({ params }) {
 
     return (
         <div>
-            <div className="text-2xl">Nombre: {repartidor.nombre}</div>
-            <div>Teléfono: {repartidor.telefono}</div>
+            <Image
+                src={repartidor.foto || "/images/avatar-80.png"}
+                alt="foto"
+                width={200}
+                height={200}
+            />
+            <div className="text-2xl">  {repartidor.nombre}</div>
+            {/* <div>Teléfono: {repartidor.telefono}</div> */}
         </div>
     );
 }

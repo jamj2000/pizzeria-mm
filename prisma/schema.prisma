@@ -66,6 +66,7 @@ model Session {
 model Repartidor {
   id       Int      @id @default(autoincrement())
   nombre   String
+  foto     String?
   telefono String
   pedidos  Pedido[]
 

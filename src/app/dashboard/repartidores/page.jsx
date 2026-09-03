@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { redirect, } from "next/navigation";
 import { getRepartidores } from "@/lib/data/repartidores";
 import { List } from "@/components/simpleui";
-import { CreateRepartidor, ViewRepartidor, UpdateRepartidor, DeleteRepartidor, CardRepartidor } from "@/components/repartidores";
+import { CreateRepartidor, ViewRepartidor, UpdateRepartidor, DeleteRepartidor, CardPublicRepartidor, CardAdminRepartidor } from "@/components/repartidores";
 
 import { connection } from "next/server";
 
@@ -38,7 +38,7 @@ async function Content() {
     return (
         <List
             prefix="/repartidores"
-            card={CardRepartidor}
+            card={CardAdminRepartidor}
             data={repartidores}
             columns={[
                 { name: "nombre", label: "Nombre" },

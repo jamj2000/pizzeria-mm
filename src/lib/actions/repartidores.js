@@ -1,17 +1,29 @@
 'use server'
 import prisma from '@/lib/prisma'
 import { updateTag } from 'next/cache'
+import { uploadImage } from "@/lib/actions/images"
 
 
 
 
 export async function createRepartidor(prevState, formData) {
     const nombre = formData.get('nombre')
+    let foto = formData.get('foto')
     const telefono = formData.get('telefono')
 
     try {
+        // si tenemos nuevo archivo en el input type=file
+        if (foto.size > 0)
+            foto = await uploadImage(foto)
+        else
+            foto = null
+
         await prisma.repartidor.create({
-            data: { nombre, telefono }
+            data: {
+                nombre,
+                ...(foto && { foto }),
+                telefono
+            }
         })
         updateTag('repartidores')
         return { type: 'success', message: 'Repartidor guardado' }
@@ -28,12 +40,23 @@ export async function createRepartidor(prevState, formData) {
 export async function updateRepartidor(prevState, formData) {
     const id = Number(formData.get('id'))
     const nombre = formData.get('nombre')
+    let foto = formData.get('foto')
     const telefono = formData.get('telefono')
 
     try {
+        // si tenemos nuevo archivo en el input type=file
+        if (foto.size > 0)
+            foto = await uploadImage(foto)
+        else
+            foto = null
+
         await prisma.repartidor.update({
             where: { id },
-            data: { nombre, telefono }
+            data: {
+                nombre,
+                ...(foto && { foto }),
+                telefono
+            }
         })
         updateTag('repartidores')
         return { type: 'success', message: 'Repartidor modificado' }
