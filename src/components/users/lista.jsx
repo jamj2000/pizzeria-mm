@@ -74,14 +74,14 @@ export default function List({ session, users }) {
 
     const Item = ({ user, children }) => {
         return (
-            <div key={user.id} className="rounded-full p-2 flex justify-between items-center even:bg-blue-100 odd:bg-slate-100 hover:outline hover:outline-slate-400">
+            <div key={user.id} className="rounded-full px-4 py-2 flex gap-2 flex-col md:flex-row justify-between items-center even:bg-blue-100 odd:bg-slate-100 hover:outline hover:outline-slate-400">
 
-                <div className="relative group flex gap-2 items-center">
+                <div className="relative group flex gap-2 items-center self-start">
                     <Mostrar user={user} />
                     <Popover user={user} />
                 </div>
 
-                <div className='flex justify-center items-center gap-1'>
+                <div className='flex justify-center items-center gap-1 self-end'>
                     {children}
                 </div>
 

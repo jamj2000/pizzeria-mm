@@ -31,6 +31,8 @@ async function Content() {
     return <UserPedidos session={session} />
 }
 
+
+
 async function UserPedidos({ session }) {
     const isAdminSession = session.user.role === 'ADMIN'
 
