@@ -1,7 +1,7 @@
 'use client'
 
 import { useCart } from "@/lib/store/cart"
-import { use, useState, useSyncExternalStore } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Trash2, Minus, Plus } from "lucide-react"
 import { Spinner3 } from "@/components/ui/spinners"
@@ -10,15 +10,14 @@ import { crearSesionPago } from '@/lib/actions/checkout'
 import { defaultImage } from "@/lib/constants"
 import Image from "next/image"
 
-const subscribe = () => () => { }
+
+
 
 export default function Checkout({ session }) {
-    const { user } = use(session) || {} // Resolvemos promesa de forma segura
     const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart()
-    const mounted = useSyncExternalStore(subscribe, () => true, () => false)
     const [isPending, setIsPending] = useState(false)
+    const { user } = session
 
-    if (!mounted) return null
 
     const total = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0)
 
@@ -89,7 +88,7 @@ export default function Checkout({ session }) {
                                 </button>
                             </div>
 
-                            <span className="text-xl font-bold min-w-[80px] text-right">
+                            <span className="text-xl font-bold min-w-20 text-right">
                                 {(item.precio * item.quantity).toFixed(2)} €
                             </span>
 
