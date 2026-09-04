@@ -1,6 +1,6 @@
 'use client'
 import { RefreshCwIcon } from "lucide-react";
-import { useActionState, useEffect, useId } from "react";
+import { useActionState, useEffect, useId, useRef } from "react";
 import { toast } from "sonner";
 import { labelDefault } from "../ui/labels";
 import CheckBox from "../ui/check-box";
@@ -11,9 +11,12 @@ import Image from "next/image";
 export default function Form({ action, isAdminSession, user, disabled = false, labelSubmit = labelDefault }) {
     const formId = useId()
     const [state, faction, isPending] = useActionState(action, {})
-
+    const handledStateRef = useRef(state)
 
     useEffect(() => {
+        if (state === handledStateRef.current) return;
+        handledStateRef.current = state;
+
         if (state?.success) {
             toast.success(state.success)
             document.getElementById(formId)?.closest('dialog')?.close()

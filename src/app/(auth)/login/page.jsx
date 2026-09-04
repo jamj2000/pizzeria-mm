@@ -1,5 +1,5 @@
 import RegisterCredentials from '@/components/auth-forms/register-credentials'
-import LoginForm from '@/components/auth-forms/login-credentials'
+import LoginCredentials from '@/components/auth-forms/login-credentials'
 import LoginMagicLink from '@/components/auth-forms/login-magic-link'
 import LoginOauth from '@/components/auth-forms/login-oauth'
 import { auth } from '@/lib/auth'
@@ -103,7 +103,7 @@ async function Content({ searchParams }) {
       </label>
 
       <RegisterCredentials callbackUrl={callbackUrl} className="hidden peer-checked/register:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
-      <LoginForm callbackUrl={callbackUrl} className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
+      <LoginCredentials callbackUrl={callbackUrl} className="hidden peer-checked/login:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       <LoginMagicLink callbackUrl={callbackUrl} className="hidden peer-checked/magic:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       <LoginOauth callbackUrl={callbackUrl} className="hidden peer-checked/oauth:block w-full bg-[snow] mt-10 border-2 border-slate-400 rounded-md mx-auto p-8 " />
       {error && <p className='text-red-400'>{errors.get(error)}</p>}

@@ -2,7 +2,7 @@
 'use client'
 import { labelDefault } from "../ui/labels"
 import { RefreshCwIcon } from "lucide-react";
-import { useActionState, useEffect, useId, useState } from "react";
+import { useActionState, useEffect, useId, useRef, useState } from "react";
 import { toast } from "sonner";
 import CheckPizza from "./check-pizza";
 import CheckRadio from "../ui/check-radio";
@@ -12,10 +12,14 @@ import CheckRadio from "../ui/check-radio";
 export default function Form({ action, user, pedido, pizzas, repartidores, disabled = false, labelSubmit = labelDefault }) {
     const formId = useId()
     const [state, faction, isPending] = useActionState(action, {})
+    const handledStateRef = useRef(state)
 
     const isAdminSession = user?.role === 'ADMIN'
 
     useEffect(() => {
+        if (state === handledStateRef.current) return;
+        handledStateRef.current = state;
+
         if (state.success) {
             toast.success(state.success)
             document.getElementById(formId)?.closest('dialog')?.close()

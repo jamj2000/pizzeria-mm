@@ -8,7 +8,7 @@ import { IconoModificar } from "@/components/ui/icons";
 import { editUser } from "@/lib/actions/users";
 import { labelModificar } from "@/components/ui/labels";
 import Form from "@/components/users/form";
-import Modal from "@/components/ui/modal";
+import { Modal } from "@/components/simpleui";
 import Link from 'next/link';
 import { connection } from "next/server";
 import Image from "next/image";

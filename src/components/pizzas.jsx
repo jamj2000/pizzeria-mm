@@ -44,7 +44,8 @@ const fields = (data) => [
     {
         name: "precio",
         label: "Precio",
-        component: "InputNumber"
+        component: "InputNumber",
+        step: 0.01
     },
     {
         name: "ingredientes",

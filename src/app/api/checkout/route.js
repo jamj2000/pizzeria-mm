@@ -1,5 +1,5 @@
-// Esta ruta no se usa. En su lugar se utiliza la acción de servidor
-// crearSesionPago en lib/actions/checkout.js
+// Esta ruta no se usa. En su lugar se utiliza la 
+// acción de servidor crearSesionPago en lib/actions/checkout.js
 // Se deja disponible la ruta para poder hacer checkout directamente desde el frontend
 // (por ejemplo desde una aplicación móvil, si fuera necesario).
 

@@ -1,6 +1,6 @@
 'use client'
 
-import Modal from '@/components/ui/modal';
+import { Modal } from '@/components/simpleui';
 import { deleteUser, editUser, newUser } from "@/lib/actions/users";
 import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/icons";
 import Form from './form';

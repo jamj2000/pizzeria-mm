@@ -2,7 +2,7 @@ import { BikeIcon, HomeIcon, KeyRoundIcon, LockIcon, MenuIcon, PizzaIcon, Scroll
 import { logout } from '@/lib/actions/auth';
 import { auth } from '@/lib/auth';
 import Link from 'next/link'
-import CartWidget from '@/components/carrito/widget';
+import { CartWidget } from '@/components/carrito';
 import { MainMenu, MenuLink } from '../simpleui';
 import { connection } from 'next/server';
 import Image from 'next/image';

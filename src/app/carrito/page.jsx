@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import CarritoCompra from "@/components/carrito/checkout";
+import { CartCheckout } from "@/components/carrito";
 import { Spinner1 } from "@/components/ui/spinners";
 import { Suspense } from "react";
 import { connection } from "next/server";
@@ -21,5 +21,5 @@ export default function Page() {
 async function Content() {
     await connection()
     const session = await auth()
-    return <CarritoCompra session={session} />
+    return <CartCheckout session={session} />
 }

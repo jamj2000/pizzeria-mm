@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { loginWithMagicLink } from '@/lib/actions/auth'
 import { toast } from 'sonner';
 import { Spinner1 } from '@/components/ui/spinners';
@@ -8,7 +8,10 @@ import { Spinner1 } from '@/components/ui/spinners';
 
 export default function LoginMagicLink({ callbackUrl, className, error }) {
     const [state, action, pending] = useActionState(loginWithMagicLink, {})
+    const handledStateRef = useRef(state)
     useEffect(() => {
+        if (state === handledStateRef.current) return;
+        handledStateRef.current = state;
         if (state?.success) toast.success(state.success)
         if (state?.error) toast.error(state.error)
     }, [state])

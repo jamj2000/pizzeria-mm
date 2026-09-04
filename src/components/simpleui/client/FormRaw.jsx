@@ -17,9 +17,12 @@ export const FormRaw = ({
 }) => {
     const [state, formAction, isPending] = useActionState(action, {});
     const formRef = useRef(null);
+    const handledStateRef = useRef(state);
 
     useEffect(() => {
         if (!state) return;
+        if (state === handledStateRef.current) return;
+        handledStateRef.current = state;
 
         if (state.message && state.type && toast[state.type]) {
             toast[state.type](state.message);

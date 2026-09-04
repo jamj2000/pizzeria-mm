@@ -1,14 +1,17 @@
 'use client'
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { login } from '@/lib/actions/auth'
 import { toast } from 'sonner';
 import { Spinner1 } from '@/components/ui/spinners';
 
 
-export default function LoginForm({ callbackUrl, className, error }) {
+export default function LoginCredentials({ callbackUrl, className, error }) {
     const [state, action, pending] = useActionState(login, {})
+    const handledStateRef = useRef(state)
     useEffect(() => {
+        if (state === handledStateRef.current) return;
+        handledStateRef.current = state;
         if (state?.success) toast.success(state.success)
         if (state?.error) toast.error(state.error)
     }, [state])

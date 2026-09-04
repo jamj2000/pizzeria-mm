@@ -10,10 +10,49 @@ import { crearSesionPago } from '@/lib/actions/checkout'
 import { defaultImage } from "@/lib/constants"
 import Image from "next/image"
 
+import { ShoppingCartIcon } from "lucide-react"
+import { useSyncExternalStore } from "react"
+
+const emptySubscribe = () => () => { }
+
+export function CartWidget() {
+    const { cart } = useCart()
+    const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
+
+    if (!mounted) {
+        return (
+            <Link
+                href="/carrito"
+                className="relative p-2 rounded-full hover:outline hover:outline-slate-600 cursor-pointer" >
+                <ShoppingCartIcon />
+            </Link>
+        )
+    }
+
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
+
+    return (
+        <Link
+            href="/carrito"
+            className="relative p-2 rounded-full hover:outline hover:outline-slate-600 cursor-pointer" >
+            <ShoppingCartIcon />
+            {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                </span>
+            )}
+        </Link>
+    )
+}
 
 
 
-export default function Checkout({ session }) {
+
+
+
+
+
+export function CartCheckout({ session }) {
     const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart()
     const [isPending, setIsPending] = useState(false)
     const { user } = session

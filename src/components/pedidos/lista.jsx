@@ -1,10 +1,9 @@
 'use client'
 
-import { use } from "react"
 import { IconoInsertar, IconoModificar, IconoEliminar } from "@/components/ui/icons"
 import { deletePedido, createPedido, updatePedido } from "@/lib/actions/pedidos"
 import { labelEliminar, labelInsertar, labelModificar } from "@/components/ui/labels"
-import Modal from "@/components/ui/modal"
+import { Modal } from "@/components/simpleui"
 import Estado from "@/components/pedidos/estado"
 import Form from "@/components/pedidos/form"
 import Filtro from "@/components/pedidos/filtro"
